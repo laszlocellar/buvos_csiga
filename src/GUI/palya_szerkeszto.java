@@ -7,9 +7,12 @@ package GUI;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -18,19 +21,23 @@ import javax.swing.JPanel;
  */
 
 
+
+
 public class palya_szerkeszto extends javax.swing.JFrame {
     
-
-    /**
-     * Creates new form palya
-     */
+    
+    
     public palya_szerkeszto(int PalyaMerete, int SzamokMeddig) {
         
         initComponents();
+        palya_letrehozas(PalyaMerete, SzamokMeddig);
 
 
-        
-        
+    }
+    
+    
+    private void palya_letrehozas(int PalyaMerete, int SzamokMeddig)
+    {
         
         this.getContentPane().setLayout(new GridLayout(PalyaMerete, PalyaMerete));
 
@@ -38,15 +45,33 @@ public class palya_szerkeszto extends javax.swing.JFrame {
         {
           for (int n2=0; n2<PalyaMerete; n2++)
         {
-            JButton mezo = new JButton();
-            mezo.setText("");
-            mezo.setPreferredSize(new Dimension(40, 40));
-            add(mezo);
+            
+            JButton[][] mezo = new JButton[PalyaMerete][PalyaMerete];
+            mezo[n][n2] = new JButton();
+            mezo[n][n2].setText("");
+            mezo[n][n2].setFont(new Font("Arial Black", Font.PLAIN, 22));
+                             mezo[n][n2].addActionListener(new java.awt.event.ActionListener() {
+                    @Override
+                    public void actionPerformed(java.awt.event.ActionEvent lehetosegek) {
+                        ButtonActionPerformed(lehetosegek, SzamokMeddig);
+                    }
+
+                });
+            mezo[n][n2].setPreferredSize(new Dimension(40, 40));
+            add(mezo[n][n2]);
+           
         }  
           
         }
-        
-
+    }
+    
+    
+    
+        private void ButtonActionPerformed(ActionEvent lehetosegek, int SzamokMeddig) {
+        JButton aktualis_mezo = (JButton) (lehetosegek.getSource());
+        if (aktualis_mezo.getText()=="") aktualis_mezo.setText("1");
+        else if (Integer.parseInt(aktualis_mezo.getText())<SzamokMeddig) aktualis_mezo.setText(String.valueOf(Integer.parseInt(aktualis_mezo.getText())+1));
+        else aktualis_mezo.setText("1");
     }
 
     /**
@@ -74,48 +99,6 @@ public class palya_szerkeszto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    
-
-    
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(palya_szerkeszto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(palya_szerkeszto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(palya_szerkeszto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(palya_szerkeszto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-
-
-   
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

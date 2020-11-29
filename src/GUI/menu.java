@@ -136,7 +136,7 @@ public class menu extends javax.swing.JFrame {
     private void jatek_kezdeseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jatek_kezdeseActionPerformed
         dispose();
         int PalyaMerete=Integer.parseInt(palya_merete.getText().trim());
-        int SzamokMeddig=Integer.parseInt(szamok_meddig.getText());
+        int SzamokMeddig=Integer.parseInt(szamok_meddig.getText().trim());
         palya_szerkeszto psz = new palya_szerkeszto(PalyaMerete, SzamokMeddig);
         psz.setVisible(true);
        
