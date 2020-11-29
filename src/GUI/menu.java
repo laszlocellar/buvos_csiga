@@ -5,6 +5,9 @@
  */
 package GUI;
 
+import static javafx.scene.input.KeyCode.N;
+import javax.swing.JFrame;
+
 /**
  *
  * @author Cellar-PC
@@ -29,19 +32,43 @@ public class menu extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        palya_merete = new javax.swing.JTextField();
+        szamok_meddig = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jatek_kezdese = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         jLabel1.setText("Bűvös csiga");
 
-        jLabel2.setText("Mező mérete (n*n méretű):");
+        jLabel2.setText("Mekkora legyen a pálya mérete? (n*n méretű):");
 
-        jTextField1.setText("jTextField1");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        palya_merete.setToolTipText("");
+        palya_merete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                palya_mereteActionPerformed(evt);
+            }
+        });
+
+        szamok_meddig.setToolTipText("");
+        szamok_meddig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                szamok_meddigActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Meddig menjenk a számok? (A pálya méreténél kisebb legyen.)");
+
+        jatek_kezdese.setText("Induljon a játék!");
+        jatek_kezdese.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jatek_kezdeseMouseClicked(evt);
+            }
+        });
+        jatek_kezdese.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jatek_kezdeseActionPerformed(evt);
             }
         });
 
@@ -50,16 +77,23 @@ public class menu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(137, 137, 137)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addGap(70, 70, 70)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(szamok_meddig, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 40, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addComponent(palya_merete, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(114, 114, 114))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(194, 194, 194)
+                .addComponent(jatek_kezdese)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -69,16 +103,36 @@ public class menu extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(213, Short.MAX_VALUE))
+                    .addComponent(palya_merete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(szamok_meddig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(62, 62, 62)
+                .addComponent(jatek_kezdese)
+                .addContainerGap(97, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void palya_mereteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_palya_mereteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_palya_mereteActionPerformed
+
+    private void szamok_meddigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_szamok_meddigActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_szamok_meddigActionPerformed
+
+    private void jatek_kezdeseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jatek_kezdeseActionPerformed
+        dispose();
+        palya_szerkeszto psz = new palya_szerkeszto();
+        psz.setVisible(true);
+    }//GEN-LAST:event_jatek_kezdeseActionPerformed
+
+    private void jatek_kezdeseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jatek_kezdeseMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jatek_kezdeseMouseClicked
 
     /**
      * @param args the command line arguments
@@ -118,6 +172,9 @@ public class menu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton jatek_kezdese;
+    private javax.swing.JTextField palya_merete;
+    private javax.swing.JTextField szamok_meddig;
     // End of variables declaration//GEN-END:variables
 }
