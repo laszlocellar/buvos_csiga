@@ -12,11 +12,20 @@ import javax.swing.JFrame;
  *
  * @author Cellar-PC
  */
+
+
+
 public class menu extends javax.swing.JFrame {
 
     /**
      * Creates new form menu
      */
+    
+  
+        
+    
+            
+            
     public menu() {
         initComponents();
     }
@@ -126,12 +135,15 @@ public class menu extends javax.swing.JFrame {
 
     private void jatek_kezdeseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jatek_kezdeseActionPerformed
         dispose();
-        palya_szerkeszto psz = new palya_szerkeszto();
+        int PalyaMerete=Integer.parseInt(palya_merete.getText().trim());
+        int SzamokMeddig=Integer.parseInt(szamok_meddig.getText());
+        palya_szerkeszto psz = new palya_szerkeszto(PalyaMerete, SzamokMeddig);
         psz.setVisible(true);
+       
     }//GEN-LAST:event_jatek_kezdeseActionPerformed
 
     private void jatek_kezdeseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jatek_kezdeseMouseClicked
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jatek_kezdeseMouseClicked
 
     /**

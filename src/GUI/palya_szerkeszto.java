@@ -24,14 +24,19 @@ public class palya_szerkeszto extends javax.swing.JFrame {
     /**
      * Creates new form palya
      */
-    public palya_szerkeszto() {
-        initComponents();
+    public palya_szerkeszto(int PalyaMerete, int SzamokMeddig) {
         
-        this.getContentPane().setLayout(new GridLayout(4, 4));
+        initComponents();
 
-        for (int n=0; n<4; n++)
+
+        
+        
+        
+        this.getContentPane().setLayout(new GridLayout(PalyaMerete, PalyaMerete));
+
+        for (int n=0; n<PalyaMerete; n++)
         {
-          for (int m=0; m<4; m++)
+          for (int n2=0; n2<PalyaMerete; n2++)
         {
             JButton mezo = new JButton();
             mezo.setText("");
@@ -40,7 +45,8 @@ public class palya_szerkeszto extends javax.swing.JFrame {
         }  
           
         }
-   
+        
+
     }
 
     /**
@@ -52,7 +58,7 @@ public class palya_szerkeszto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,7 +110,6 @@ public class palya_szerkeszto extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new palya_szerkeszto().setVisible(true); 
 
 
    
