@@ -5,13 +5,17 @@
  */
 package GUI;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -38,18 +42,27 @@ public class palya_szerkeszto extends javax.swing.JFrame {
     
     private void palya_letrehozas(int PalyaMerete, int SzamokMeddig)
     {
-        
-        this.getContentPane().setLayout(new GridLayout(PalyaMerete, PalyaMerete));
-
-        for (int n=0; n<PalyaMerete; n++)
+             palya.setLayout(new GridLayout(PalyaMerete, PalyaMerete, 5, 5));
+             palya.setVisible(true);
+             gombok.setLayout(new GridLayout(1, 2));
+             gombok.setVisible(true);
+             
+            JButton[][] mezo = new JButton[PalyaMerete][PalyaMerete];
+            JLabel[] vonal = new JLabel[2];
+            vonal[0] = new JLabel("<html>|<br/>|<br/>|<br/>|</html>");
+            vonal[1] = new JLabel("______");
+            
+            for (int n=0; n<PalyaMerete; n++)
         {
           for (int n2=0; n2<PalyaMerete; n2++)
         {
             
-            JButton[][] mezo = new JButton[PalyaMerete][PalyaMerete];
+
+            
             mezo[n][n2] = new JButton();
             mezo[n][n2].setText("");
             mezo[n][n2].setFont(new Font("Arial Black", Font.PLAIN, 22));
+
                              mezo[n][n2].addActionListener(new java.awt.event.ActionListener() {
                     @Override
                     public void actionPerformed(java.awt.event.ActionEvent lehetosegek) {
@@ -58,11 +71,14 @@ public class palya_szerkeszto extends javax.swing.JFrame {
 
                 });
             mezo[n][n2].setPreferredSize(new Dimension(40, 40));
-            add(mezo[n][n2]);
+            palya.add(mezo[n][n2]);
            
         }  
           
         }
+            JPanel jatekPanel = new JPanel(); 
+            JButton jatek = new JButton("Játék");
+            jatekPanel.add(jatek);
     }
     
     
@@ -83,23 +99,104 @@ public class palya_szerkeszto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
+        palya = new javax.swing.JPanel();
+        gombok = new javax.swing.JPanel();
+        palya_mentese = new javax.swing.JButton();
+        jatek_inditasa = new javax.swing.JButton();
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(500, 500));
+
+        palya.setPreferredSize(new java.awt.Dimension(300, 120));
+
+        javax.swing.GroupLayout palyaLayout = new javax.swing.GroupLayout(palya);
+        palya.setLayout(palyaLayout);
+        palyaLayout.setHorizontalGroup(
+            palyaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        palyaLayout.setVerticalGroup(
+            palyaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 290, Short.MAX_VALUE)
+        );
+
+        palya_mentese.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        palya_mentese.setText("Pálya mentése");
+        palya_mentese.setActionCommand("Pálya mentése");
+        palya_mentese.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                palya_menteseActionPerformed(evt);
+            }
+        });
+
+        jatek_inditasa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jatek_inditasa.setText("Játék indítása");
+
+        javax.swing.GroupLayout gombokLayout = new javax.swing.GroupLayout(gombok);
+        gombok.setLayout(gombokLayout);
+        gombokLayout.setHorizontalGroup(
+            gombokLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(gombokLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(palya_mentese)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jatek_inditasa)
+                .addGap(40, 40, 40))
+        );
+        gombokLayout.setVerticalGroup(
+            gombokLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gombokLayout.createSequentialGroup()
+                .addGap(0, 12, Short.MAX_VALUE)
+                .addGroup(gombokLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(palya_mentese)
+                    .addComponent(jatek_inditasa)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(palya, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                    .addComponent(gombok, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(palya, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
+                .addComponent(gombok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void palya_menteseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_palya_menteseActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_palya_menteseActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel gombok;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton jatek_inditasa;
+    private javax.swing.JPanel palya;
+    private javax.swing.JButton palya_mentese;
     // End of variables declaration//GEN-END:variables
 }
