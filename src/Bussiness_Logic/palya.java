@@ -10,5 +10,7 @@ package Bussiness_Logic;
  * @author Cellár László
  */
 public class palya {
+    
+   
 
 }

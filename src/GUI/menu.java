@@ -13,6 +13,9 @@ import static javafx.scene.input.KeyCode.N;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.JPanel;
 
 /**
@@ -59,6 +62,7 @@ public class menu extends javax.swing.JFrame {
         betoltes_palya = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Bűvös csiga");
 
         jLabel1.setFont(new java.awt.Font("Arial Unicode MS", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -172,13 +176,28 @@ public class menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void palya_szerkeszteseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_palya_szerkeszteseActionPerformed
-
-        dispose();
+       
+        
+        try
+        {
         int PalyaMerete=Integer.parseInt(palya_merete.getText().trim());
         int SzamokMeddig=Integer.parseInt(szamok_meddig.getText().trim());
-        palya_szerkeszto psz = new palya_szerkeszto(PalyaMerete, SzamokMeddig);
-        psz.setVisible(true);
+        
+        if (PalyaMerete>0 && PalyaMerete>=SzamokMeddig)
+        {
+            palya_szerkeszto psz = new palya_szerkeszto(PalyaMerete, SzamokMeddig);
+            psz.setVisible(true);
+        }
+        else  showMessageDialog(null, "A megadott adatok nem megfelelőek. Kérem a pálya mérete legyen nagyobb 0-nál és a számok terjedelme legyen kisebb, mint a pálya mérete", "Hiba", ERROR_MESSAGE);
 
+        
+        }
+        catch (NumberFormatException nfe)
+        {
+            showMessageDialog(null, "Kérem adjon meg értékeket.", "Hiba", ERROR_MESSAGE);
+        }
+        
+        
     }//GEN-LAST:event_palya_szerkeszteseActionPerformed
 
     private void palya_szerkeszteseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_palya_szerkeszteseMouseClicked
