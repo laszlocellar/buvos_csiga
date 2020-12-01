@@ -11,13 +11,36 @@ import javax.swing.JButton;
  * @author Cellár László
  */
 public class palyaFelepitese {
-
-    public static JButton[][] palya;
- 
+    palyaFelepitese palyaFelepitese;
+    int[][] palya;
+    
    public palyaFelepitese(int PalyaMerete)
    {
-             int[][] palya = new int[PalyaMerete][PalyaMerete];
+     palya= new int[PalyaMerete][PalyaMerete];
+   
 
    }
+   
+   
+   public palyaFelepitese getPalya() {
+        return palyaFelepitese;
+    }
+   
+
+
+
+   
+   public void ertekHozzaadas(int sor, int oszlop, int szam)
+   {
+       palya[sor][oszlop]=szam;
+   }
+   
+   public String ertekLekerdezes(int sor, int oszlop)
+   {
+       if (palya[sor][oszlop]!=0) return String.valueOf(palya[sor][oszlop]);
+       else return "";
+   }
+   
+
 
 }

@@ -18,9 +18,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import Bussiness_Logic.palyaFelepitese;
+import Bussiness_Logic.*;
 import java.awt.event.ActionListener;
 import static java.lang.Math.sqrt;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
@@ -33,7 +35,7 @@ import static java.lang.Math.sqrt;
 public class palya_szerkeszto extends javax.swing.JFrame implements ActionListener {
     int PalyaMerete, SzamokMeddig;
     JButton[][] mezo;
-    
+    palyaFelepitese pf;
 
     public palya_szerkeszto(int inputPalyaMerete, int inputSzamokMeddig) {
         
@@ -41,7 +43,7 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
          PalyaMerete=inputPalyaMerete;
          SzamokMeddig=inputSzamokMeddig;
          mezo = new JButton[PalyaMerete][PalyaMerete];
-        palya_letrehozas(PalyaMerete, SzamokMeddig, inputPalyaMerete);
+         palya_letrehozas(PalyaMerete, SzamokMeddig, inputPalyaMerete);
         
        
         
@@ -60,7 +62,7 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
              gombok.setVisible(true);
              
              
-            
+            pf = new palyaFelepitese(PalyaMerete);
             for (int n=0; n<PalyaMerete; n++)
         {
              for (int n2=0; n2<PalyaMerete; n2++)
@@ -84,24 +86,7 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
     }
     
  
-    
-   
-    
-    
-           /*public void PalyaFelepitese()
-            {
-                        
-        for (int i = 0; i < PalyaMerete; i++) {
-            for (int j = 0; j < PalyaMerete; j++) {
-            
-                palyaFelepitese.palya[i][j]=Integer.ParseInt(mezo[i][j].getText());
-                
-            }
-            }
-        
-            }*/
-
-        
+           
        
 
     /**
@@ -131,7 +116,6 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(500, 500));
 
         palya.setPreferredSize(new java.awt.Dimension(300, 120));
 
@@ -148,7 +132,6 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
 
         palya_mentese.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         palya_mentese.setText("Pálya mentése");
-        palya_mentese.setActionCommand("Pálya mentése");
         palya_mentese.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 palya_menteseActionPerformed(evt);
@@ -157,6 +140,11 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
 
         jatek_inditasa.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jatek_inditasa.setText("Játék indítása");
+        jatek_inditasa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jatek_inditasaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout gombokLayout = new javax.swing.GroupLayout(gombok);
         gombok.setLayout(gombokLayout);
@@ -205,6 +193,28 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
         // TODO add your handling code here:
     }//GEN-LAST:event_palya_menteseActionPerformed
 
+    private void jatek_inditasaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jatek_inditasaActionPerformed
+        
+        
+        
+         try
+        {
+       
+            dispose();
+           jatek j = new jatek(PalyaMerete,SzamokMeddig,pf);
+            j.setVisible(true);
+
+
+        
+        }
+        catch (NumberFormatException nfe)
+        {
+            showMessageDialog(null, "Hibába ütköztem.", "Hiba", ERROR_MESSAGE);
+        }
+        
+        
+    }//GEN-LAST:event_jatek_inditasaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel gombok;
@@ -217,6 +227,7 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
     @Override
     public void actionPerformed(ActionEvent e) {
         
+        
         for(int i=0;i<PalyaMerete;i++)
         {
             for(int j=0;j<PalyaMerete;j++)
@@ -226,15 +237,21 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
                 if (mezo[i][j].getText()=="")
                 {
                     mezo[i][j].setText("1");
+                    pf.ertekHozzaadas(i,j,Integer.parseInt(mezo[i][j].getText()));
                 }
             
         else if (Integer.parseInt(mezo[i][j].getText())<SzamokMeddig) {
             mezo[i][j].setText(String.valueOf(Integer.parseInt(mezo[i][j].getText())+1));
+            pf.ertekHozzaadas(i,j,Integer.parseInt(mezo[i][j].getText()));
         }
         else {
             mezo[i][j].setText("1");
+            pf.ertekHozzaadas(i,j,Integer.parseInt(mezo[i][j].getText()));
         }
+                
         }
+              
+           
             }
         }
         

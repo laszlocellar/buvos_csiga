@@ -184,6 +184,7 @@ public class menu extends javax.swing.JFrame {
         int SzamokMeddig=Integer.parseInt(szamok_meddig.getText().trim());
         if (PalyaMerete>0 && PalyaMerete>=SzamokMeddig)
         {
+            dispose();
             palya_szerkeszto psz = new palya_szerkeszto(PalyaMerete, SzamokMeddig);
             psz.setVisible(true);
         }

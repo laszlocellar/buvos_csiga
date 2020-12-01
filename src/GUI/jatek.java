@@ -5,17 +5,63 @@
  */
 package GUI;
 
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import javax.swing.JButton;
+import Bussiness_Logic.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+
 /**
  *
  * @author Cellar-PC
  */
-public class jatek extends javax.swing.JFrame {
-
+public class jatek extends javax.swing.JFrame implements ActionListener {
+    JButton[][] mezo;
+    int PalyaMerete, SzamokMeddig;
+    palyaFelepitese palyafelepitese;
+    
     /**
      * Creates new form jatek
      */
-    public jatek() {
+    public jatek(int inputPalyaMerete, int inputSzamokMeddig, palyaFelepitese palyafelepitese) {
         initComponents();
+        PalyaMerete=inputPalyaMerete;
+        SzamokMeddig=inputSzamokMeddig;
+        mezo=new JButton[PalyaMerete+1][PalyaMerete+1];
+        this.palyafelepitese=palyafelepitese;
+        palyabetoltese();
+    }
+    
+    public void palyabetoltese()
+    {
+             palya.setLayout(new GridLayout(PalyaMerete, PalyaMerete, 5, 5));
+             palya.setVisible(true);
+             gombok.setLayout(new GridLayout(1, 2));
+             gombok.setVisible(true);
+  
+             
+            
+            for (int n=0; n<PalyaMerete; n++)
+        {
+             for (int n2=0; n2<PalyaMerete; n2++)
+        {
+            
+            mezo[n][n2] = new JButton();
+
+            mezo[n][n2].setText(palyafelepitese.ertekLekerdezes(n,n2));
+            mezo[n][n2].setFocusable(false);
+            mezo[n][n2].setFont(new Font("Arial Black", Font.PLAIN, 22));
+            mezo[n][n2].addActionListener(this);
+            mezo[n][n2].setPreferredSize(new Dimension(40, 40));
+            palya.add(mezo[n][n2]);
+
+            if (mezo[n][n2].getText()!="") mezo[n][n2].setEnabled(false);
+            
+        }  
+        }
     }
 
     /**
@@ -27,57 +73,125 @@ public class jatek extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        palya = new javax.swing.JPanel();
+        gombok = new javax.swing.JPanel();
+        kilepes = new javax.swing.JButton();
+        ellenorzes = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Bűvös csiga játék");
+        setPreferredSize(new java.awt.Dimension(300, 300));
+
+        palya.setMinimumSize(new java.awt.Dimension(300, 300));
+
+        javax.swing.GroupLayout palyaLayout = new javax.swing.GroupLayout(palya);
+        palya.setLayout(palyaLayout);
+        palyaLayout.setHorizontalGroup(
+            palyaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        palyaLayout.setVerticalGroup(
+            palyaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        kilepes.setText("Kilépés");
+
+        ellenorzes.setText("Ellenőrzés");
+        ellenorzes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ellenorzesActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout gombokLayout = new javax.swing.GroupLayout(gombok);
+        gombok.setLayout(gombokLayout);
+        gombokLayout.setHorizontalGroup(
+            gombokLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(gombokLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(kilepes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 294, Short.MAX_VALUE)
+                .addComponent(ellenorzes)
+                .addGap(50, 50, 50))
+        );
+        gombokLayout.setVerticalGroup(
+            gombokLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gombokLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(gombokLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(kilepes)
+                    .addComponent(ellenorzes)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addComponent(palya, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(gombok, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(178, Short.MAX_VALUE)
+                .addComponent(palya, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 183, Short.MAX_VALUE)
+                .addComponent(gombok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(jatek.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(jatek.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(jatek.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(jatek.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void ellenorzesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ellenorzesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ellenorzesActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new jatek().setVisible(true);
+    
+    public void actionPerformed(ActionEvent e) {
+        
+        
+        for(int i=0;i<PalyaMerete;i++)
+        {
+            for(int j=0;j<PalyaMerete;j++)
+        {
+            if (e.getSource()==mezo[i][j])
+            {
+                if (mezo[i][j].getText()=="")
+                {
+                    mezo[i][j].setText("1");
+                    palyafelepitese.ertekHozzaadas(i,j,Integer.parseInt(mezo[i][j].getText()));
+                }
+            
+        else if (Integer.parseInt(mezo[i][j].getText())<SzamokMeddig) {
+            mezo[i][j].setText(String.valueOf(Integer.parseInt(mezo[i][j].getText())+1));
+            palyafelepitese.ertekHozzaadas(i,j,Integer.parseInt(mezo[i][j].getText()));
+        }
+        else {
+            mezo[i][j].setText("1");
+            palyafelepitese.ertekHozzaadas(i,j,Integer.parseInt(mezo[i][j].getText()));
+        }
+                
+        }
+              
+           
             }
-        });
+        }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ellenorzes;
+    private javax.swing.JPanel gombok;
+    private javax.swing.JButton kilepes;
+    private javax.swing.JPanel palya;
     // End of variables declaration//GEN-END:variables
 }
