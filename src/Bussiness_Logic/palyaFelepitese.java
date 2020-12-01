@@ -4,13 +4,20 @@
  * and open the template in the editor.
  */
 package Bussiness_Logic;
-
+import GUI.palya_szerkeszto;
+import javax.swing.JButton;
 /**
  *
  * @author Cellár László
  */
-public class palya {
-    
-   
+public class palyaFelepitese {
+
+    public static JButton[][] palya;
+ 
+   public palyaFelepitese(int PalyaMerete)
+   {
+             int[][] palya = new int[PalyaMerete][PalyaMerete];
+
+   }
 
 }

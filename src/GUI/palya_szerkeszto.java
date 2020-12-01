@@ -18,6 +18,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import Bussiness_Logic.palyaFelepitese;
+import java.awt.event.ActionListener;
+import static java.lang.Math.sqrt;
 
 /**
  *
@@ -27,68 +30,79 @@ import javax.swing.JPanel;
 
 
 
-public class palya_szerkeszto extends javax.swing.JFrame {
+public class palya_szerkeszto extends javax.swing.JFrame implements ActionListener {
+    int PalyaMerete, SzamokMeddig;
+    JButton[][] mezo;
     
-    
-    
-    public palya_szerkeszto(int PalyaMerete, int SzamokMeddig) {
+
+    public palya_szerkeszto(int inputPalyaMerete, int inputSzamokMeddig) {
         
         initComponents();
-        palya_letrehozas(PalyaMerete, SzamokMeddig);
-
+         PalyaMerete=inputPalyaMerete;
+         SzamokMeddig=inputSzamokMeddig;
+         mezo = new JButton[PalyaMerete][PalyaMerete];
+        palya_letrehozas(PalyaMerete, SzamokMeddig, inputPalyaMerete);
+        
+       
+        
 
     }
     
+
     
-    private void palya_letrehozas(int PalyaMerete, int SzamokMeddig)
+    
+    private void palya_letrehozas(int PalyaMerete, int SzamokMeddig, int inputPalyaMerete)
     {
-             palya.setLayout(new GridLayout(PalyaMerete, PalyaMerete, 5, 5));
+        
+             palya.setLayout(new GridLayout(inputPalyaMerete, inputPalyaMerete, 5, 5));
              palya.setVisible(true);
              gombok.setLayout(new GridLayout(1, 2));
              gombok.setVisible(true);
              
-            JButton[][] mezo = new JButton[PalyaMerete][PalyaMerete];
-            JLabel[] vonal = new JLabel[2];
-            vonal[0] = new JLabel("<html>|<br/>|<br/>|<br/>|</html>");
-            vonal[1] = new JLabel("______");
+             
             
             for (int n=0; n<PalyaMerete; n++)
         {
-          for (int n2=0; n2<PalyaMerete; n2++)
+             for (int n2=0; n2<PalyaMerete; n2++)
         {
             
 
-            
             mezo[n][n2] = new JButton();
             mezo[n][n2].setText("");
             mezo[n][n2].setFont(new Font("Arial Black", Font.PLAIN, 22));
+            mezo[n][n2].setFocusable(false);
+            mezo[n][n2].addActionListener(this); 
 
-                             mezo[n][n2].addActionListener(new java.awt.event.ActionListener() {
-                    @Override
-                    public void actionPerformed(java.awt.event.ActionEvent lehetosegek) {
-                        ButtonActionPerformed(lehetosegek, SzamokMeddig);
-                    }
-
-                });
             mezo[n][n2].setPreferredSize(new Dimension(40, 40));
             palya.add(mezo[n][n2]);
-           
+            
         }  
-          
         }
-            JPanel jatekPanel = new JPanel(); 
-            JButton jatek = new JButton("Játék");
-            jatekPanel.add(jatek);
+            
+            
+        
     }
     
+ 
+    
+   
     
     
-        private void ButtonActionPerformed(ActionEvent lehetosegek, int SzamokMeddig) {
-        JButton aktualis_mezo = (JButton) (lehetosegek.getSource());
-        if (aktualis_mezo.getText()=="") aktualis_mezo.setText("1");
-        else if (Integer.parseInt(aktualis_mezo.getText())<SzamokMeddig) aktualis_mezo.setText(String.valueOf(Integer.parseInt(aktualis_mezo.getText())+1));
-        else aktualis_mezo.setText("1");
-    }
+           /*public void PalyaFelepitese()
+            {
+                        
+        for (int i = 0; i < PalyaMerete; i++) {
+            for (int j = 0; j < PalyaMerete; j++) {
+            
+                palyaFelepitese.palya[i][j]=Integer.ParseInt(mezo[i][j].getText());
+                
+            }
+            }
+        
+            }*/
+
+        
+       
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -199,4 +213,30 @@ public class palya_szerkeszto extends javax.swing.JFrame {
     private javax.swing.JPanel palya;
     private javax.swing.JButton palya_mentese;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+        for(int i=0;i<PalyaMerete;i++)
+        {
+            for(int j=0;j<PalyaMerete;j++)
+        {
+            if (e.getSource()==mezo[i][j])
+            {
+                if (mezo[i][j].getText()=="")
+                {
+                    mezo[i][j].setText("1");
+                }
+            
+        else if (Integer.parseInt(mezo[i][j].getText())<SzamokMeddig) {
+            mezo[i][j].setText(String.valueOf(Integer.parseInt(mezo[i][j].getText())+1));
+        }
+        else {
+            mezo[i][j].setText("1");
+        }
+        }
+            }
+        }
+        
+    }
 }

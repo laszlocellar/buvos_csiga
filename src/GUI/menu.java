@@ -182,7 +182,6 @@ public class menu extends javax.swing.JFrame {
         {
         int PalyaMerete=Integer.parseInt(palya_merete.getText().trim());
         int SzamokMeddig=Integer.parseInt(szamok_meddig.getText().trim());
-        
         if (PalyaMerete>0 && PalyaMerete>=SzamokMeddig)
         {
             palya_szerkeszto psz = new palya_szerkeszto(PalyaMerete, SzamokMeddig);
