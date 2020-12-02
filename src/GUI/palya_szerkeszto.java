@@ -62,7 +62,7 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
              gombok.setVisible(true);
              
              
-            pf = new palyaFelepitese(PalyaMerete);
+            pf = new palyaFelepitese(PalyaMerete,SzamokMeddig);
             for (int n=0; n<PalyaMerete; n++)
         {
              for (int n2=0; n2<PalyaMerete; n2++)
@@ -153,17 +153,17 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
             .addGroup(gombokLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(palya_mentese)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(jatek_inditasa)
-                .addGap(40, 40, 40))
+                .addContainerGap())
         );
         gombokLayout.setVerticalGroup(
             gombokLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gombokLayout.createSequentialGroup()
-                .addGap(0, 12, Short.MAX_VALUE)
+            .addGroup(gombokLayout.createSequentialGroup()
                 .addGroup(gombokLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(palya_mentese)
-                    .addComponent(jatek_inditasa)))
+                    .addComponent(jatek_inditasa))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -199,12 +199,14 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
         
          try
         {
-       
+            if (pf.palyaJo()==true)
+            {
             dispose();
            jatek j = new jatek(PalyaMerete,SzamokMeddig,pf);
             j.setVisible(true);
-
-
+            }
+            else showMessageDialog(null, "Egy sorban és oszlopban csak egyszer szerepeljen egy szám. Továbbá a számok növekvő sorrendben kövessék egymást.", "Hiba", ERROR_MESSAGE);
+                
         
         }
         catch (NumberFormatException nfe)
@@ -245,8 +247,8 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
             pf.ertekHozzaadas(i,j,Integer.parseInt(mezo[i][j].getText()));
         }
         else {
-            mezo[i][j].setText("1");
-            pf.ertekHozzaadas(i,j,Integer.parseInt(mezo[i][j].getText()));
+            mezo[i][j].setText("");
+            pf.ertekHozzaadas(i,j,0);
         }
                 
         }
