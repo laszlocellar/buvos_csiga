@@ -171,7 +171,7 @@ public class jatek extends javax.swing.JFrame implements ActionListener {
             palyafelepitese.ertekHozzaadas(i,j,Integer.parseInt(mezo[i][j].getText()));
         }
         else {
-            mezo[i][j].setText(" ");
+            mezo[i][j].setText("");
             palyafelepitese.ertekHozzaadas(i,j,Integer.parseInt(mezo[i][j].getText()));
         }
                 

@@ -197,10 +197,14 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
         
         
         
+        
          try
         {
+            pf.palyaKorkoros(PalyaMerete,0);
             if (pf.palyaJo()==true)
             {
+                
+                
             dispose();
            jatek j = new jatek(PalyaMerete,SzamokMeddig,pf);
             j.setVisible(true);
