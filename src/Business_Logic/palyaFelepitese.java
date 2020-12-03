@@ -1,0 +1,271 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Business_Logic;
+
+import GUI.palya_szerkeszto;
+import java.io.File;
+import java.io.StringWriter;
+import static javafx.scene.input.KeyCode.R;
+import javax.swing.JButton;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ *
+ * @author Cellár László
+ */
+
+@XmlRootElement
+public class palyaFelepitese {
+
+    //palyaFelepitese palyaFelepitese;
+    
+    int[][] palya;
+    int PalyaMerete;
+    int SzamokMeddig;
+    @XmlElement
+    int[] korkorosSzamok;
+    
+
+    public palyaFelepitese(int PalyaMerete, int SzamokMeddig) {
+        this.SzamokMeddig = SzamokMeddig;
+        this.PalyaMerete = PalyaMerete;
+        palya = new int[PalyaMerete][PalyaMerete];
+        korkorosSzamok = new int[PalyaMerete * PalyaMerete];
+        
+    }
+    
+      public palyaFelepitese() {
+       
+    }
+    
+    
+    public String XMLmentes() {
+         StringWriter swriter = new StringWriter();
+         try {
+            JAXBContext jaxbContext = JAXBContext.newInstance(this.getClass());
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
+            jaxbMarshaller.marshal(this,swriter);
+         } catch (JAXBException jaxbex) {jaxbex.printStackTrace();}
+   
+         String s = swriter.toString();
+         if (s==null) s = "";
+         
+           return s;
+     }
+
+    /*public palyaFelepitese getPalya() {
+        return palyaFelepitese;
+    }*/
+    
+    
+
+
+    public boolean palyaJo() {
+        boolean sor = false;
+        int[] szamokTomb = new int[SzamokMeddig + 1];
+
+        //Sorok ellenőrzése
+        for (int i = 0; i < PalyaMerete; i++) {
+            //Tömb nullázása 
+            for (int x = 0; x < SzamokMeddig + 1; x++) {
+                szamokTomb[x] = 0;
+            }
+
+            for (int j = 0; j < PalyaMerete; j++) {
+                szamokTomb[palya[i][j]] = szamokTomb[palya[i][j]] + 1;
+
+            }
+
+            //Vizsgálat
+            for (int y = 1; y < SzamokMeddig + 1; y++) {
+                if (szamokTomb[y] <= 1) {
+                    sor = true;
+                } else {
+                    sor = false;
+                    break;
+                }
+                if (sor == false) {
+                    break;
+                }
+            }
+
+            if (sor == false) {
+                break;
+            }
+        }
+
+        if (sor == false) {
+            return false;
+        }
+
+        //Oszlopok ellenőrzése
+        for (int j = 0; j < PalyaMerete; j++) {
+            //Tömb nullázása 
+
+            for (int x = 0; x < SzamokMeddig + 1; x++) {
+                szamokTomb[x] = 0;
+            }
+
+            for (int i = 0; i < PalyaMerete; i++) {
+                szamokTomb[palya[i][j]] = szamokTomb[palya[i][j]] + 1;
+            }
+
+            //Vizsgálat
+            for (int y = 1; y < SzamokMeddig + 1; y++) {
+                if (szamokTomb[y] <= 1) {
+                    sor = true;
+                } else {
+                    sor = false;
+                    break;
+                }
+                if (sor == false) {
+                    break;
+                }
+            }
+            if (sor == false) {
+                break;
+            }
+        }
+
+        if (sor == true) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public void palyaKorkoros(int PalyaMerete, int kor, int korkorosSzamokValtozo) {
+        int legkisebb = PalyaMerete - PalyaMerete;
+        int legnagyobb = PalyaMerete - 1;
+
+        for (int j = legkisebb; j <= legnagyobb; j++) {
+
+            korkorosSzamok[korkorosSzamokValtozo] = palya[legkisebb + kor][j + kor];
+            //System.out.println("Palya: " + palya[legkisebb+kor][j+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index: " +korkorosSzamokValtozo);
+            korkorosSzamokValtozo++;
+        }
+
+        for (int i = legkisebb + 1; i <= legnagyobb; i++) {
+
+            korkorosSzamok[korkorosSzamokValtozo] = palya[i + kor][legnagyobb + kor];
+            //System.out.println("Palya:  " + palya[i+kor][legnagyobb+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index:  " +korkorosSzamokValtozo);
+            korkorosSzamokValtozo++;
+        }
+
+        for (int j = legnagyobb - 1; j >= legkisebb; j--) {
+
+            korkorosSzamok[korkorosSzamokValtozo] = palya[legnagyobb + kor][j + kor];
+            //System.out.println("Palya:  " + palya[legnagyobb+kor][j+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index: " +korkorosSzamokValtozo);
+            korkorosSzamokValtozo++;
+        }
+
+        for (int i = legnagyobb - 1; i >= legkisebb + 1; i--) {
+
+            korkorosSzamok[korkorosSzamokValtozo] = palya[i + kor][legkisebb + kor];
+            //System.out.println("Palya:  " + palya[i+kor][legkisebb+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index:  " +korkorosSzamokValtozo);
+            korkorosSzamokValtozo++;
+        }
+
+        if (PalyaMerete - 2 > 0) {
+            palyaKorkoros(PalyaMerete - 2, kor + 1, korkorosSzamokValtozo);
+        }
+
+    }
+
+    public boolean folytonosE() {
+        int j = 0;
+        boolean folytonos = false;
+
+        for (int i = 0; i < korkorosSzamok.length; i++) {
+            if (korkorosSzamok[i] != 0) {
+                j = i;
+                break;
+            }
+        }
+
+        int legutolso = korkorosSzamok[j];
+
+        for (int i = j + 1; i < korkorosSzamok.length; i++) {
+            System.out.println(korkorosSzamok[i]);
+            if (korkorosSzamok[i] != 0) {
+                if (legutolso < SzamokMeddig) {
+                    if (legutolso < korkorosSzamok[i]) {
+                        folytonos = true;
+                        //System.out.println(folytonos + "1. legutolso: " +legutolso + " Körkörös: " +korkorosSzamok[i]);
+                        legutolso = korkorosSzamok[i];
+                    } else {
+                        folytonos = false;
+                        //System.out.println(folytonos + "2. legutolso: " +legutolso + " Körkörös: " +korkorosSzamok[i]);
+                        break;
+                    }
+                    if (folytonos == false) {
+                        break;
+                    }
+                } else if (legutolso == SzamokMeddig) {
+                    if (korkorosSzamok[i] == 1) {
+                        folytonos = true;
+                        //System.out.println(folytonos + "3. legutolso: " +legutolso + " Körkörös: " +korkorosSzamok[i]);
+                        legutolso = korkorosSzamok[i];
+                    }
+                } else {
+                    folytonos = false;
+                    //System.out.println(folytonos + "4. legutolso: " +legutolso + " Körkörös: " +korkorosSzamok[i]);
+                    break;
+                }
+                if (folytonos == false) {
+                    break;
+                }
+
+                if (folytonos == false) {
+                    break;
+                }
+            }
+
+        }
+
+        System.out.println(folytonos);
+        if (folytonos == false) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+
+    public void ertekHozzaadas(int sor, int oszlop, int szam) {
+        palya[sor][oszlop] = szam;
+        
+        
+        /*    try {
+
+        JAXBContext context = JAXBContext.newInstance(szamok.class);
+    Marshaller mar= context.createMarshaller();
+    mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+    mar.marshal(sz, new File("E:\\OFF\\Egyetem\\2020-2021-1\\Programozási technológiák\\Buvos_csiga\\xml.xml"));
+
+          } catch (JAXBException e) {
+        e.printStackTrace();
+          }*/
+    }
+
+    public String ertekLekerdezes(int sor, int oszlop) {
+        if (palya[sor][oszlop] != 0) {
+            return String.valueOf(palya[sor][oszlop]);
+        } else {
+            return "";
+        }
+    }
+    
+
+}

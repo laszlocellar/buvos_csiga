@@ -5,64 +5,61 @@
  */
 package GUI;
 
+import Business_Logic.palyaFelepitese;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.JButton;
-import Bussiness_Logic.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
-import Bussiness_Logic.*;
 
 /**
  *
  * @author Cellar-PC
  */
 public class jatek extends javax.swing.JFrame implements ActionListener {
+
     JButton[][] mezo;
     int PalyaMerete, SzamokMeddig;
     palyaFelepitese pf;
-    
+
     /**
      * Creates new form jatek
      */
     public jatek(int inputPalyaMerete, int inputSzamokMeddig, palyaFelepitese palyafelepitese) {
         initComponents();
-        PalyaMerete=inputPalyaMerete;
-        SzamokMeddig=inputSzamokMeddig;
-        mezo=new JButton[PalyaMerete+1][PalyaMerete+1];
-        this.pf=palyafelepitese;
+        PalyaMerete = inputPalyaMerete;
+        SzamokMeddig = inputSzamokMeddig;
+        mezo = new JButton[PalyaMerete + 1][PalyaMerete + 1];
+        this.pf = palyafelepitese;
         palyabetoltese();
     }
-    
-    public void palyabetoltese()
-    {
-             palya.setLayout(new GridLayout(PalyaMerete, PalyaMerete, 5, 5));
-             palya.setVisible(true);
-             gombok.setLayout(new GridLayout(1, 2));
-             gombok.setVisible(true);
-  
-             
-            
-            for (int n=0; n<PalyaMerete; n++)
-        {
-             for (int n2=0; n2<PalyaMerete; n2++)
-        {
-            
-            mezo[n][n2] = new JButton();
 
-            mezo[n][n2].setText(pf.ertekLekerdezes(n,n2));
-            mezo[n][n2].setFocusable(false);
-            mezo[n][n2].setFont(new Font("Arial Black", Font.PLAIN, 22));
-            mezo[n][n2].addActionListener(this);
-            mezo[n][n2].setPreferredSize(new Dimension(40, 40));
-            palya.add(mezo[n][n2]);
+    public void palyabetoltese() {
+        palya.setLayout(new GridLayout(PalyaMerete, PalyaMerete, 5, 5));
+        palya.setVisible(true);
+        gombok.setLayout(new GridLayout(1, 2));
+        gombok.setVisible(true);
 
-            if (mezo[n][n2].getText()!="") mezo[n][n2].setEnabled(false);
-            
-        }  
+        for (int n = 0; n < PalyaMerete; n++) {
+            for (int n2 = 0; n2 < PalyaMerete; n2++) {
+
+                mezo[n][n2] = new JButton();
+
+                mezo[n][n2].setText(pf.ertekLekerdezes(n, n2));
+                mezo[n][n2].setFocusable(false);
+                mezo[n][n2].setFont(new Font("Arial Black", Font.PLAIN, 22));
+                mezo[n][n2].addActionListener(this);
+                mezo[n][n2].setPreferredSize(new Dimension(40, 40));
+                palya.add(mezo[n][n2]);
+
+                if (mezo[n][n2].getText() != "") {
+                    mezo[n][n2].setEnabled(false);
+                }
+
+            }
         }
     }
 
@@ -154,64 +151,50 @@ public class jatek extends javax.swing.JFrame implements ActionListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ellenorzesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ellenorzesActionPerformed
-try
-        {
-            
-            pf.palyaKorkoros(PalyaMerete,0,0);
-            if (pf.palyaJo()==true  && pf.folytonosE()==true)
-            {      
-           dispose();
-            eredmeny e = new eredmeny();
-            
-            e.setVisible(true);
-             
+        try {
+
+            pf.palyaKorkoros(PalyaMerete, 0, 0);
+            if (pf.palyaJo() == true && pf.folytonosE() == true) {
+                dispose();
+                eredmeny e = new eredmeny();
+
+                e.setVisible(true);
+
+            } else {
+                showMessageDialog(null, "Egy sorban és oszlopban csak egyszer szerepeljen egy szám. Továbbá a számok növekvő sorrendben kövessék egymást.", "Hiba", ERROR_MESSAGE);
             }
-            else showMessageDialog(null, "Egy sorban és oszlopban csak egyszer szerepeljen egy szám. Továbbá a számok növekvő sorrendben kövessék egymást.", "Hiba", ERROR_MESSAGE);
-                
-        
-        }
-        catch (NumberFormatException nfe)
-        {
+
+        } catch (NumberFormatException nfe) {
             showMessageDialog(null, "Hibába ütköztem.", "Hiba", ERROR_MESSAGE);
         }        // TODO add your handling code here:
     }//GEN-LAST:event_ellenorzesActionPerformed
 
     private void kilepesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kilepesActionPerformed
-this.dispose();
-      
+        this.dispose();
+
     }//GEN-LAST:event_kilepesActionPerformed
 
-    
     public void actionPerformed(ActionEvent e) {
-        
-        
-        for(int i=0;i<PalyaMerete;i++)
-        {
-            for(int j=0;j<PalyaMerete;j++)
-        {
-            if (e.getSource()==mezo[i][j])
-            {
-                if (mezo[i][j].getText()=="")
-                {
-                    mezo[i][j].setText("1");
-                    pf.ertekHozzaadas(i,j,Integer.parseInt(mezo[i][j].getText()));
+
+        for (int i = 0; i < PalyaMerete; i++) {
+            for (int j = 0; j < PalyaMerete; j++) {
+                if (e.getSource() == mezo[i][j]) {
+                    if (mezo[i][j].getText() == "") {
+                        mezo[i][j].setText("1");
+                        pf.ertekHozzaadas(i, j, Integer.parseInt(mezo[i][j].getText()));
+                    } else if (Integer.parseInt(mezo[i][j].getText()) < SzamokMeddig) {
+                        mezo[i][j].setText(String.valueOf(Integer.parseInt(mezo[i][j].getText()) + 1));
+                        pf.ertekHozzaadas(i, j, Integer.parseInt(mezo[i][j].getText()));
+                    } else {
+                        mezo[i][j].setText("");
+                        pf.ertekHozzaadas(i, j, 0);
+                    }
+
                 }
-            
-        else if (Integer.parseInt(mezo[i][j].getText())<SzamokMeddig) {
-            mezo[i][j].setText(String.valueOf(Integer.parseInt(mezo[i][j].getText())+1));
-            pf.ertekHozzaadas(i,j,Integer.parseInt(mezo[i][j].getText()));
-        }
-        else {
-            mezo[i][j].setText("");
-            pf.ertekHozzaadas(i,j,0);
-        }
-                
-        }
-              
-           
+
             }
         }
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

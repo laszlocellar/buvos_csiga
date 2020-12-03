@@ -101,14 +101,11 @@ public class eredmeny extends javax.swing.JFrame {
 
     private void ujjatekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ujjatekActionPerformed
 
-        try
-        {
+        try {
 
             menu m = new menu();
             m.setVisible(true);
-        }
-        catch (NumberFormatException nfe)
-        {
+        } catch (NumberFormatException nfe) {
             showMessageDialog(null, "Hibába ütköztem.", "Hiba", ERROR_MESSAGE);
         }
 
@@ -116,11 +113,9 @@ public class eredmeny extends javax.swing.JFrame {
     }//GEN-LAST:event_ujjatekActionPerformed
 
     private void kilepesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kilepesActionPerformed
-this.dispose();
-        
+        this.dispose();
+
     }//GEN-LAST:event_kilepesActionPerformed
-
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

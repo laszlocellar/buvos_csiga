@@ -22,23 +22,13 @@ import javax.swing.JPanel;
  *
  * @author Cellar-PC
  */
-
-
-
 public class menu extends javax.swing.JFrame {
 
     /**
      * Creates new form menu
      */
-    
-  
-        
-    
-            
-            
     public menu() {
         initComponents();
-       
 
     }
 
@@ -187,30 +177,24 @@ public class menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void palya_szerkeszteseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_palya_szerkeszteseActionPerformed
-       
-        
-        try
-        {
-        int PalyaMerete=Integer.parseInt(palya_merete.getText().trim());
-        int SzamokMeddig=Integer.parseInt(szamok_meddig.getText().trim());
-        if (PalyaMerete>0 && PalyaMerete>=SzamokMeddig)
-        {
-            
-            dispose();
-            palya_szerkeszto psz = new palya_szerkeszto(PalyaMerete, SzamokMeddig);
-            this.setVisible(false);
-            psz.setVisible(true);
-        }
-        else  showMessageDialog(null, "A megadott adatok nem megfelelőek. Kérem a pálya mérete legyen nagyobb 0-nál és a számok terjedelme legyen kisebb, mint a pálya mérete", "Hiba", ERROR_MESSAGE);
 
-        
-        }
-        catch (NumberFormatException nfe)
-        {
+        try {
+            int PalyaMerete = Integer.parseInt(palya_merete.getText().trim());
+            int SzamokMeddig = Integer.parseInt(szamok_meddig.getText().trim());
+            if (PalyaMerete > 0 && PalyaMerete >= SzamokMeddig) {
+
+                dispose();
+                palya_szerkeszto psz = new palya_szerkeszto(PalyaMerete, SzamokMeddig);
+                this.setVisible(false);
+                psz.setVisible(true);
+            } else {
+                showMessageDialog(null, "A megadott adatok nem megfelelőek. Kérem a pálya mérete legyen nagyobb 0-nál és a számok terjedelme legyen kisebb, mint a pálya mérete", "Hiba", ERROR_MESSAGE);
+            }
+
+        } catch (NumberFormatException nfe) {
             showMessageDialog(null, "Kérem adjon meg értékeket.", "Hiba", ERROR_MESSAGE);
         }
-        
-        
+
     }//GEN-LAST:event_palya_szerkeszteseActionPerformed
 
     private void palya_szerkeszteseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_palya_szerkeszteseMouseClicked
@@ -230,8 +214,8 @@ public class menu extends javax.swing.JFrame {
     }//GEN-LAST:event_betoltes_palyaActionPerformed
 
     private void kilepesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kilepesActionPerformed
-this.dispose();
-     
+        this.dispose();
+
     }//GEN-LAST:event_kilepesActionPerformed
 
     /**
@@ -265,7 +249,6 @@ this.dispose();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new menu().setVisible(true);
-                
 
             }
         });

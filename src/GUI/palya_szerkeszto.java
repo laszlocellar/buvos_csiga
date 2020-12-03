@@ -5,6 +5,8 @@
  */
 package GUI;
 
+import Business_Logic.palyaFelepitese;
+import Business_Logic.szamok;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -18,7 +20,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import Bussiness_Logic.*;
 import java.awt.event.ActionListener;
 import static java.lang.Math.sqrt;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
@@ -28,66 +29,46 @@ import static javax.swing.JOptionPane.showMessageDialog;
  *
  * @author Cellar-PC
  */
-
-
-
-
 public class palya_szerkeszto extends javax.swing.JFrame implements ActionListener {
+
     int PalyaMerete, SzamokMeddig;
     JButton[][] mezo;
     palyaFelepitese pf;
 
     public palya_szerkeszto(int inputPalyaMerete, int inputSzamokMeddig) {
-        
+
         initComponents();
-         PalyaMerete=inputPalyaMerete;
-         SzamokMeddig=inputSzamokMeddig;
-         mezo = new JButton[PalyaMerete][PalyaMerete];
-         palya_letrehozas(PalyaMerete, SzamokMeddig, inputPalyaMerete);
-        
-       
-        
+        PalyaMerete = inputPalyaMerete;
+        SzamokMeddig = inputSzamokMeddig;
+        mezo = new JButton[PalyaMerete][PalyaMerete];
+        palya_letrehozas(PalyaMerete, SzamokMeddig, inputPalyaMerete);
 
     }
-    
 
-    
-    
-    private void palya_letrehozas(int PalyaMerete, int SzamokMeddig, int inputPalyaMerete)
-    {
-        
-             palya.setLayout(new GridLayout(inputPalyaMerete, inputPalyaMerete, 5, 5));
-             palya.setVisible(true);
-             gombok.setLayout(new GridLayout(1, 2));
-             gombok.setVisible(true);
-             
-             
-            pf = new palyaFelepitese(PalyaMerete,SzamokMeddig);
-            for (int n=0; n<PalyaMerete; n++)
-        {
-             for (int n2=0; n2<PalyaMerete; n2++)
-        {
-            
+    private void palya_letrehozas(int PalyaMerete, int SzamokMeddig, int inputPalyaMerete) {
 
-            mezo[n][n2] = new JButton();
-            mezo[n][n2].setText("");
-            mezo[n][n2].setFont(new Font("Arial Black", Font.PLAIN, 22));
-            mezo[n][n2].setFocusable(false);
-            mezo[n][n2].addActionListener(this); 
+        palya.setLayout(new GridLayout(inputPalyaMerete, inputPalyaMerete, 5, 5));
+        palya.setVisible(true);
+        gombok.setLayout(new GridLayout(1, 2));
+        gombok.setVisible(true);
 
-            mezo[n][n2].setPreferredSize(new Dimension(40, 40));
-            palya.add(mezo[n][n2]);
-            
-        }  
+        pf = new palyaFelepitese(PalyaMerete, SzamokMeddig);
+        for (int n = 0; n < PalyaMerete; n++) {
+            for (int n2 = 0; n2 < PalyaMerete; n2++) {
+
+                mezo[n][n2] = new JButton();
+                mezo[n][n2].setText("");
+                mezo[n][n2].setFont(new Font("Arial Black", Font.PLAIN, 22));
+                mezo[n][n2].setFocusable(false);
+                mezo[n][n2].addActionListener(this);
+
+                mezo[n][n2].setPreferredSize(new Dimension(40, 40));
+                palya.add(mezo[n][n2]);
+
+            }
         }
-            
-            
-        
+
     }
-    
- 
-           
-       
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -190,37 +171,41 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
     }// </editor-fold>//GEN-END:initComponents
 
     private void palya_menteseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_palya_menteseActionPerformed
-        // TODO add your handling code here:
+       
+        try {
+            pf.palyaKorkoros(PalyaMerete, 0, 0);
+            if (pf.palyaJo() == true) {
+
+                
+                mentes m = new mentes(pf);
+                m.setVisible(true);
+            } else {
+                showMessageDialog(null, "Egy sorban és oszlopban csak egyszer szerepeljen egy szám. Továbbá a számok növekvő sorrendben kövessék egymást.", "Hiba", ERROR_MESSAGE);
+            }
+
+        } catch (NumberFormatException nfe) {
+            showMessageDialog(null, "Hibába ütköztem.", "Hiba", ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_palya_menteseActionPerformed
 
     private void jatek_inditasaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jatek_inditasaActionPerformed
-        
-        
-        
-        
-         try
-        {
-            pf.palyaKorkoros(PalyaMerete,0,0);
-            if (pf.palyaJo()==true)
-            {
-                
-                
-            dispose();
-           jatek j = new jatek(PalyaMerete,SzamokMeddig,pf);
-            j.setVisible(true);
+
+        try {
+            pf.palyaKorkoros(PalyaMerete, 0, 0);
+            if (pf.palyaJo() == true) {
+
+                dispose();
+                jatek j = new jatek(PalyaMerete, SzamokMeddig, pf);
+                j.setVisible(true);
+            } else {
+                showMessageDialog(null, "Egy sorban és oszlopban csak egyszer szerepeljen egy szám. Továbbá a számok növekvő sorrendben kövessék egymást.", "Hiba", ERROR_MESSAGE);
             }
-            else showMessageDialog(null, "Egy sorban és oszlopban csak egyszer szerepeljen egy szám. Továbbá a számok növekvő sorrendben kövessék egymást.", "Hiba", ERROR_MESSAGE);
-                
-        
-        }
-        catch (NumberFormatException nfe)
-        {
+
+        } catch (NumberFormatException nfe) {
             showMessageDialog(null, "Hibába ütköztem.", "Hiba", ERROR_MESSAGE);
         }
-        
-        
-    }//GEN-LAST:event_jatek_inditasaActionPerformed
 
+    }//GEN-LAST:event_jatek_inditasaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel gombok;
@@ -232,34 +217,33 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        for (int i = 0; i < PalyaMerete; i++) {
+            for (int j = 0; j < PalyaMerete; j++) {
+                if (e.getSource() == mezo[i][j]) {
+                    if (mezo[i][j].getText() == "") {
+                        mezo[i][j].setText("1");
+                        pf.ertekHozzaadas(i, j, Integer.parseInt(mezo[i][j].getText()));
         
-        
-        for(int i=0;i<PalyaMerete;i++)
-        {
-            for(int j=0;j<PalyaMerete;j++)
-        {
-            if (e.getSource()==mezo[i][j])
-            {
-                if (mezo[i][j].getText()=="")
-                {
-                    mezo[i][j].setText("1");
-                    pf.ertekHozzaadas(i,j,Integer.parseInt(mezo[i][j].getText()));
+
+                    } else if (Integer.parseInt(mezo[i][j].getText()) < SzamokMeddig) {
+                        mezo[i][j].setText(String.valueOf(Integer.parseInt(mezo[i][j].getText()) + 1));
+                        pf.ertekHozzaadas(i, j, Integer.parseInt(mezo[i][j].getText()));
+                        
+
+
+                    } else {
+                        mezo[i][j].setText("");
+                        pf.ertekHozzaadas(i, j, 0);
+                   
+
+
+                    }
+
                 }
-            
-        else if (Integer.parseInt(mezo[i][j].getText())<SzamokMeddig) {
-            mezo[i][j].setText(String.valueOf(Integer.parseInt(mezo[i][j].getText())+1));
-            pf.ertekHozzaadas(i,j,Integer.parseInt(mezo[i][j].getText()));
-        }
-        else {
-            mezo[i][j].setText("");
-            pf.ertekHozzaadas(i,j,0);
-        }
-                
-        }
-              
-           
+
             }
         }
-        
+
     }
 }

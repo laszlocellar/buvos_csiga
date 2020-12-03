@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Bussiness_Logic;
+package Business_Logic;
 
 /**
  *
  * @author Cellar-PC
  */
-public class szamok {
+public class mentes {
     
 }
