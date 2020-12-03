@@ -97,6 +97,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Kil&#xe9;p&#xe9;s"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="kilepesActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="ellenorzes">
           <Properties>

@@ -200,7 +200,7 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
         
          try
         {
-            pf.palyaKorkoros(PalyaMerete,0);
+            pf.palyaKorkoros(PalyaMerete,0,0);
             if (pf.palyaJo()==true)
             {
                 

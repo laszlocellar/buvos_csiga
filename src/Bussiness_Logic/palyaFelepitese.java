@@ -19,7 +19,6 @@ public class palyaFelepitese {
     int PalyaMerete;
     int SzamokMeddig;
     int[] korkorosSzamok;
-    int korkorosSzamokValtozo=0;
 
     public palyaFelepitese(int PalyaMerete, int SzamokMeddig) {
         this.SzamokMeddig = SzamokMeddig;
@@ -100,7 +99,7 @@ public class palyaFelepitese {
         }
 
        
-        if (sor == true && folytonosE()==true) {
+        if (sor == true) {
             return true;
         } else {
             return false;
@@ -108,41 +107,45 @@ public class palyaFelepitese {
         
     }
     
-    public void palyaKorkoros(int PalyaMerete, int kor)
+    public void palyaKorkoros(int PalyaMerete, int kor, int korkorosSzamokValtozo)
     {
         int legkisebb=PalyaMerete-PalyaMerete;
         int legnagyobb=PalyaMerete-1;
         
         for(int j=legkisebb;j<=legnagyobb;j++)
         {
-            //System.out.print(" " + palya[legkisebb+kor][j+kor] + "");
+            
             korkorosSzamok[korkorosSzamokValtozo]=palya[legkisebb+kor][j+kor];
+            //System.out.println("Palya: " + palya[legkisebb+kor][j+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index: " +korkorosSzamokValtozo);
             korkorosSzamokValtozo++;
         }
         
         for(int i=legkisebb+1;i<=legnagyobb;i++)
         {
-            //System.out.print(" " + palya[i+kor][legnagyobb+kor] + "");
+            
             korkorosSzamok[korkorosSzamokValtozo]=palya[i+kor][legnagyobb+kor];
+            //System.out.println("Palya:  " + palya[i+kor][legnagyobb+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index:  " +korkorosSzamokValtozo);
             korkorosSzamokValtozo++;
         }
 
                 
            for(int j=legnagyobb-1;j>=legkisebb;j--)
         {
-            //System.out.print(" " + palya[legnagyobb+kor][j+kor] + "");
+           
             korkorosSzamok[korkorosSzamokValtozo]=palya[legnagyobb+kor][j+kor];
+            //System.out.println("Palya:  " + palya[legnagyobb+kor][j+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index: " +korkorosSzamokValtozo);
             korkorosSzamokValtozo++;
         }
            
                    for(int i=legnagyobb-1;i>=legkisebb+1;i--)
         {
-            //System.out.print(" " + palya[i+kor][legkisebb+kor] + "");
+            
             korkorosSzamok[korkorosSzamokValtozo]=palya[i+kor][legkisebb+kor];
+            //System.out.println("Palya:  " + palya[i+kor][legkisebb+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index:  " +korkorosSzamokValtozo);
             korkorosSzamokValtozo++;
         }
                    
-                   if (PalyaMerete-2>=0) palyaKorkoros(PalyaMerete-2,kor+1);     
+                   if (PalyaMerete-2>0) palyaKorkoros(PalyaMerete-2,kor+1, korkorosSzamokValtozo);     
                    
                    
                 
@@ -150,37 +153,36 @@ public class palyaFelepitese {
     
     public boolean folytonosE()
     {
-                          
-                   
-                   
                    int j=0;
                    boolean folytonos=false;
-                   
-                           
-                   while (j<korkorosSzamok.length && korkorosSzamok[j]==0 )
+                    
+                   for (int i=0;i<korkorosSzamok.length;i++)
                    {
-                       j++;
+                       if (korkorosSzamok[i]!=0)
+                       {
+                        j=i;
+                        break;
+                       }
                    }
                    
                    
-                   
-                   
+
                    int legutolso=korkorosSzamok[j];
  
-                   
-                   
-                  
                    for (int i=j+1; i<korkorosSzamok.length;i++)
                    {
+                       System.out.println(korkorosSzamok[i]);
                        if (korkorosSzamok[i]!=0)
                        {
                            if (legutolso<SzamokMeddig){
                                 if(legutolso<korkorosSzamok[i]) {
                                     folytonos=true;
+                                    //System.out.println(folytonos + "1. legutolso: " +legutolso + " Körkörös: " +korkorosSzamok[i]);
                                     legutolso=korkorosSzamok[i];
                                 }
                                 else {
                                     folytonos=false;
+                                    //System.out.println(folytonos + "2. legutolso: " +legutolso + " Körkörös: " +korkorosSzamok[i]);
                                     break;
                                 }
                                 if (folytonos==false) break;
@@ -191,22 +193,25 @@ public class palyaFelepitese {
                                if (korkorosSzamok[i]==1)
                                {
                                    folytonos=true;
+                                   //System.out.println(folytonos + "3. legutolso: " +legutolso + " Körkörös: " +korkorosSzamok[i]);
                                    legutolso=korkorosSzamok[i];
                                }
-                               
+                             }  
                                else
                                {
                                    folytonos=false;
+                                   //System.out.println(folytonos + "4. legutolso: " +legutolso + " Körkörös: " +korkorosSzamok[i]);
                                    break;
                                }
                                if (folytonos==false) break;
-                           }
+                           
                            if (folytonos==false) break;
                        }
-                       if (folytonos==false) break;
+                       
+                       
                    }
-                         
                    
+                   System.out.println(folytonos);
                    if (folytonos==false) return false;
                    else return true;
     }
