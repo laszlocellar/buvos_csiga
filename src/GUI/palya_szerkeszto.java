@@ -173,6 +173,7 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
     private void palya_menteseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_palya_menteseActionPerformed
        
         try {
+            dispose();
             pf.palyaKorkoros(PalyaMerete, 0, 0);
             if (pf.palyaJo() == true) {
 

@@ -5,15 +5,12 @@
  */
 package Business_Logic;
 
-import GUI.palya_szerkeszto;
-import java.io.File;
+
 import java.io.StringWriter;
-import static javafx.scene.input.KeyCode.R;
-import javax.swing.JButton;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -27,10 +24,11 @@ public class palyaFelepitese {
 
     //palyaFelepitese palyaFelepitese;
     
+    @XmlElement
     int[][] palya;
     int PalyaMerete;
     int SzamokMeddig;
-    @XmlElement
+    
     int[] korkorosSzamok;
     
 

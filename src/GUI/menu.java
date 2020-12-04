@@ -210,7 +210,9 @@ public class menu extends javax.swing.JFrame {
     }//GEN-LAST:event_palya_mereteActionPerformed
 
     private void betoltes_palyaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_betoltes_palyaActionPerformed
-        // TODO add your handling code here:
+        betoltes b = new betoltes();
+        b.setVisible(true);
+        dispose();
     }//GEN-LAST:event_betoltes_palyaActionPerformed
 
     private void kilepesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kilepesActionPerformed

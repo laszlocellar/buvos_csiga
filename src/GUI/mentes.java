@@ -6,11 +6,9 @@
 package GUI;
 
 import Business_Logic.*;
-import java.io.File;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import java.sql.*;
+
+
 
 /**
  *
@@ -18,6 +16,10 @@ import java.sql.*;
  */
 public class mentes extends javax.swing.JFrame {
 palyaFelepitese pf;
+String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
+String DB_URL = "jdbc:mysql://localhost:3306/buvoscsiga";
+String USER = "root";
+String PASS = "";
 
     /**
      * Creates new form mentes
@@ -38,7 +40,7 @@ palyaFelepitese pf;
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        palya_neve = new javax.swing.JTextField();
+        palya_nev = new javax.swing.JTextField();
         mentes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -46,9 +48,9 @@ palyaFelepitese pf;
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Kérem nevezze el a pályát!");
 
-        palya_neve.addActionListener(new java.awt.event.ActionListener() {
+        palya_nev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                palya_neveActionPerformed(evt);
+                palya_nevActionPerformed(evt);
             }
         });
 
@@ -64,15 +66,16 @@ palyaFelepitese pf;
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(palya_neve)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(94, 94, 94)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(palya_nev)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(165, 165, 165)
+                        .addComponent(mentes)))
                 .addContainerGap(94, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(mentes)
-                .addGap(164, 164, 164))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -80,10 +83,9 @@ palyaFelepitese pf;
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(palya_neve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(mentes)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(palya_nev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addComponent(mentes))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -94,18 +96,84 @@ palyaFelepitese pf;
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void palya_neveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_palya_neveActionPerformed
+    private void palya_nevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_palya_nevActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_palya_neveActionPerformed
+    }//GEN-LAST:event_palya_nevActionPerformed
 
     private void mentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mentesActionPerformed
-    System.out.println(pf.XMLmentes());
+    String nev=palya_nev.getText();
+        Connection conn = null;
+   Statement stmt = null;
+   try{
+      //STEP 2: Register JDBC driver
+      Class.forName("com.mysql.jdbc.Driver");
+
+      //STEP 3: Open a connection
+      System.out.println("Connecting to a selected database...");
+      conn = DriverManager.getConnection(DB_URL, USER, PASS);
+      System.out.println("Connected database successfully...");
+      
+      //STEP 4: Execute a query
+      System.out.println("Inserting records into the table...");
+      stmt = conn.createStatement();
+      
+      
+      
+      PreparedStatement st = conn.prepareStatement("SELECT nev FROM palyak WHERE nev=?");
+            st.setString(1,nev);
+            st.execute();
+            if(st.getResultSet().next()) //VAN ILYEN 
+            {
+       PreparedStatement preparedStmt = conn.prepareStatement("UPDATE INTO palyak " +
+                   "VALUES (?,?)");
+       preparedStmt.setString(1, nev );
+        preparedStmt.setString(2, pf.XMLmentes() );
+        preparedStmt.executeUpdate();
+        
+            }
+            
+            else //nincs ilyen név
+            {PreparedStatement preparedStmt = conn.prepareStatement("INSERT INTO palyak " +
+                   "VALUES (?,?)");
+       preparedStmt.setString(1, nev );
+        preparedStmt.setString(2, pf.XMLmentes() );
+        preparedStmt.executeUpdate();
+            }
+            
+      System.out.println("Inserted records into the table...");
+
+   }catch(SQLException se){
+      //Handle errors for JDBC
+      se.printStackTrace();
+   }catch(Exception e){
+      //Handle errors for Class.forName
+      e.printStackTrace();
+   }finally{
+      //finally block used to close resources
+      try{
+         if(stmt!=null)
+            conn.close();
+      }catch(SQLException se){
+      }// do nothing
+      try{
+         if(conn!=null)
+            conn.close();
+      }catch(SQLException se){
+         se.printStackTrace();
+      }//end finally try
+   }//end try
+        
+        
+        
+       dispose();
     }//GEN-LAST:event_mentesActionPerformed
 
     /**
@@ -117,6 +185,6 @@ palyaFelepitese pf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton mentes;
-    private javax.swing.JTextField palya_neve;
+    private javax.swing.JTextField palya_nev;
     // End of variables declaration//GEN-END:variables
 }
