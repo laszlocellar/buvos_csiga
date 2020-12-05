@@ -225,7 +225,7 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
         for (int i = 0; i < PalyaMerete; i++) {
             for (int j = 0; j < PalyaMerete; j++) {
                 if (e.getSource() == mezo[i][j]) {
-                    if (mezo[i][j].getText() == "↑" || mezo[i][j].getText() == "↓" || mezo[i][j].getText() == "→" || mezo[i][j].getText() == "←") {
+                    if (mezo[i][j].getText() == "↑" || mezo[i][j].getText() == "↓" || mezo[i][j].getText() == "→" || mezo[i][j].getText() == "←" || mezo[i][j].getText() == "X") {
                         mezo[i][j].setText("1");
                         pf.ertekHozzaadas(i, j, Integer.parseInt(mezo[i][j].getText()));
         

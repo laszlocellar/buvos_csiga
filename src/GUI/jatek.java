@@ -55,7 +55,7 @@ public class jatek extends javax.swing.JFrame implements ActionListener {
                 mezo[n][n2].setPreferredSize(new Dimension(40, 40));
                 palya.add(mezo[n][n2]);
 
-                if ((mezo[n][n2].getText() != "↑") && (mezo[n][n2].getText() != "↓")  && (mezo[n][n2].getText() != "→")  && (mezo[n][n2].getText() != "←")  ) {
+                if ((mezo[n][n2].getText() != "↑") && (mezo[n][n2].getText() != "↓")  && (mezo[n][n2].getText() != "→")  && (mezo[n][n2].getText() != "←") && (mezo[n][n2].getText() != "X" )) {
                     mezo[n][n2].setEnabled(false);
                 }
 

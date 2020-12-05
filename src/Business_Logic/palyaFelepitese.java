@@ -165,39 +165,48 @@ public class palyaFelepitese {
         int legkisebb = PalyaMerete - PalyaMerete;
         int legnagyobb = PalyaMerete - 1;
 
-        for (int j = legkisebb; j <= legnagyobb; j++) {
+        for (int j = legkisebb; j < legnagyobb; j++) {
 
             korkorosSzamok[korkorosSzamokValtozo] = palya[legkisebb + kor][j + kor];
-            //System.out.println("Palya: " + palya[legkisebb+kor][j+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index: " +korkorosSzamokValtozo);
+            System.out.println("Palya: " + palya[legkisebb+kor][j+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index: " +korkorosSzamokValtozo);
+           
             korkorosIranyok[legkisebb + kor][j + kor]="→";
+            
+           
             korkorosSzamokValtozo++;
         }
 
-        for (int i = legkisebb + 1; i <= legnagyobb; i++) {
+        for (int i = legkisebb; i < legnagyobb; i++) {
 
             korkorosSzamok[korkorosSzamokValtozo] = palya[i + kor][legnagyobb + kor];
                korkorosIranyok[i + kor][legnagyobb + kor]="↓";         
-            //System.out.println("Palya:  " + palya[i+kor][legnagyobb+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index:  " +korkorosSzamokValtozo);
+            System.out.println("Palya:  " + palya[i+kor][legnagyobb+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index:  " +korkorosSzamokValtozo);
             korkorosSzamokValtozo++;
         }
 
-        for (int j = legnagyobb - 1; j >= legkisebb; j--) {
+        for (int j = legnagyobb; j > legkisebb; j--) {
 korkorosIranyok[legnagyobb + kor][j + kor]="←";
             korkorosSzamok[korkorosSzamokValtozo] = palya[legnagyobb + kor][j + kor];
-//System.out.println("Palya:  " + palya[legnagyobb+kor][j+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index: " +korkorosSzamokValtozo);
+System.out.println("Palya:  " + palya[legnagyobb+kor][j+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index: " +korkorosSzamokValtozo);
             korkorosSzamokValtozo++;
         }
 
-        for (int i = legnagyobb - 1; i >= legkisebb + 1; i--) {
+        for (int i = legnagyobb; i > legkisebb + 1; i--) {
 korkorosIranyok[i + kor][legkisebb + kor]="↑";
             korkorosSzamok[korkorosSzamokValtozo] = palya[i + kor][legkisebb + kor];
-//System.out.println("Palya:  " + palya[i+kor][legkisebb+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index:  " +korkorosSzamokValtozo);
+System.out.println("Palya:  " + palya[i+kor][legkisebb+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index:  " +korkorosSzamokValtozo);
             korkorosSzamokValtozo++;
         }
+        
+        korkorosIranyok[legkisebb+kor+1][legkisebb+kor]="→";
+        
+        
 
         if (PalyaMerete - 2 > 0) {
             palyaKorkoros(PalyaMerete - 2, kor + 1, korkorosSzamokValtozo);
         }
+        else korkorosIranyok[legnagyobb+kor][legkisebb+kor]="X";
+    
 
     }
 
