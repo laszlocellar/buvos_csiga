@@ -174,6 +174,8 @@ String PASS = "";
         
         
        dispose();
+       
+       
     }//GEN-LAST:event_mentesActionPerformed
 
     /**

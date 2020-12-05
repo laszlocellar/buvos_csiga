@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-
+import Business_Logic.*;
 /**
  *
  * @author Cellar-PC
@@ -170,9 +170,12 @@ tcm.removeColumn( tcm.getColumn(1) );
     }// </editor-fold>//GEN-END:initComponents
 
     private void betoltesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_betoltesActionPerformed
+    
         
-      
-System.out.println(palyak_listazasa.getModel().getValueAt(palyak_listazasa.getSelectedRow(), 1).toString());
+        palyaFelepitese pf = new palyaFelepitese();
+        pf.XMLbetoltes(palyak_listazasa.getModel().getValueAt(palyak_listazasa.getSelectedRow(), 1).toString());
+        this.setVisible(false);
+        
     }//GEN-LAST:event_betoltesActionPerformed
 
   

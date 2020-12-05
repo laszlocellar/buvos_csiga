@@ -5,12 +5,15 @@
  */
 package Business_Logic;
 
-
+import GUI.jatek;
+import java.awt.GridLayout;
+import java.io.StringReader;
 import java.io.StringWriter;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -18,55 +21,68 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Cellár László
  */
-
 @XmlRootElement
 public class palyaFelepitese {
 
     //palyaFelepitese palyaFelepitese;
-    
     @XmlElement
     int[][] palya;
+    @XmlElement
     int PalyaMerete;
+    @XmlElement
     int SzamokMeddig;
-    
+
     int[] korkorosSzamok;
-    
 
     public palyaFelepitese(int PalyaMerete, int SzamokMeddig) {
         this.SzamokMeddig = SzamokMeddig;
         this.PalyaMerete = PalyaMerete;
         palya = new int[PalyaMerete][PalyaMerete];
         korkorosSzamok = new int[PalyaMerete * PalyaMerete];
-        
+
     }
-    
-      public palyaFelepitese() {
-       
+
+    public palyaFelepitese() {
+
     }
-    
-    
+
     public String XMLmentes() {
-         StringWriter swriter = new StringWriter();
-         try {
+        StringWriter sw = new StringWriter();
+        try {
             JAXBContext jaxbContext = JAXBContext.newInstance(this.getClass());
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
             jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
-            jaxbMarshaller.marshal(this,swriter);
-         } catch (JAXBException jaxbex) {jaxbex.printStackTrace();}
-   
-         String s = swriter.toString();
-         if (s==null) s = "";
-         
-           return s;
-     }
+            jaxbMarshaller.marshal(this, sw);
+        } catch (JAXBException jaxbex) {
+            jaxbex.printStackTrace();
+        }
 
-    /*public palyaFelepitese getPalya() {
-        return palyaFelepitese;
-    }*/
-    
-    
+        String xml = sw.toString();
+        if (xml == null) {
+            xml = "";
+        }
 
+        return xml;
+    }
+
+    public void XMLbetoltes(String XMLpalya) {
+        JAXBContext jaxbContext;
+        try {
+            jaxbContext = JAXBContext.newInstance(palyaFelepitese.class);
+
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+
+             palyaFelepitese pf = (palyaFelepitese) jaxbUnmarshaller.unmarshal(new StringReader(XMLpalya));
+
+            System.out.println(pf.toString());
+            System.out.println("" + PalyaMerete + " " + SzamokMeddig);
+            jatek j = new jatek(pf.PalyaMerete, pf.PalyaMerete, pf);
+                j.setVisible(true);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+    }
 
     public boolean palyaJo() {
         boolean sor = false;
@@ -239,11 +255,10 @@ public class palyaFelepitese {
             return true;
         }
     }
-    
 
     public void ertekHozzaadas(int sor, int oszlop, int szam) {
         palya[sor][oszlop] = szam;
-        
+
     }
 
     public String ertekLekerdezes(int sor, int oszlop) {
@@ -253,6 +268,5 @@ public class palyaFelepitese {
             return "";
         }
     }
-    
 
 }
