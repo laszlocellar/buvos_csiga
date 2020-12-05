@@ -244,17 +244,6 @@ public class palyaFelepitese {
     public void ertekHozzaadas(int sor, int oszlop, int szam) {
         palya[sor][oszlop] = szam;
         
-        
-        /*    try {
-
-        JAXBContext context = JAXBContext.newInstance(szamok.class);
-    Marshaller mar= context.createMarshaller();
-    mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-    mar.marshal(sz, new File("E:\\OFF\\Egyetem\\2020-2021-1\\Programozási technológiák\\Buvos_csiga\\xml.xml"));
-
-          } catch (JAXBException e) {
-        e.printStackTrace();
-          }*/
     }
 
     public String ertekLekerdezes(int sor, int oszlop) {
