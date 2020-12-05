@@ -50,21 +50,25 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
         palya.setVisible(true);
         gombok.setLayout(new GridLayout(1, 2));
         gombok.setVisible(true);
+        int valtozo=0;
 
         pf = new palyaFelepitese(PalyaMerete, SzamokMeddig);
+                pf.palyaKorkoros(PalyaMerete, 0,0);
+
         for (int n = 0; n < PalyaMerete; n++) {
             for (int n2 = 0; n2 < PalyaMerete; n2++) {
 
                 mezo[n][n2] = new JButton();
-                mezo[n][n2].setText("");
+                
+                mezo[n][n2].setText(pf.nyil(n,n2));
                 mezo[n][n2].setFont(new Font("Arial Black", Font.PLAIN, 22));
                 mezo[n][n2].setFocusable(false);
                 mezo[n][n2].addActionListener(this);
 
                 mezo[n][n2].setPreferredSize(new Dimension(40, 40));
                 palya.add(mezo[n][n2]);
-
-            }
+                valtozo++;
+            }   
         }
 
     }
@@ -221,7 +225,7 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
         for (int i = 0; i < PalyaMerete; i++) {
             for (int j = 0; j < PalyaMerete; j++) {
                 if (e.getSource() == mezo[i][j]) {
-                    if (mezo[i][j].getText() == "") {
+                    if (mezo[i][j].getText() == "↑" || mezo[i][j].getText() == "↓" || mezo[i][j].getText() == "→" || mezo[i][j].getText() == "←") {
                         mezo[i][j].setText("1");
                         pf.ertekHozzaadas(i, j, Integer.parseInt(mezo[i][j].getText()));
         
@@ -233,7 +237,7 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
 
 
                     } else {
-                        mezo[i][j].setText("");
+                        mezo[i][j].setText(pf.nyil(i,j));
                         pf.ertekHozzaadas(i, j, 0);
                    
 

@@ -55,7 +55,7 @@ public class jatek extends javax.swing.JFrame implements ActionListener {
                 mezo[n][n2].setPreferredSize(new Dimension(40, 40));
                 palya.add(mezo[n][n2]);
 
-                if (mezo[n][n2].getText() != "") {
+                if ((mezo[n][n2].getText() != "↑") && (mezo[n][n2].getText() != "↓")  && (mezo[n][n2].getText() != "→")  && (mezo[n][n2].getText() != "←")  ) {
                     mezo[n][n2].setEnabled(false);
                 }
 
@@ -179,14 +179,14 @@ public class jatek extends javax.swing.JFrame implements ActionListener {
         for (int i = 0; i < PalyaMerete; i++) {
             for (int j = 0; j < PalyaMerete; j++) {
                 if (e.getSource() == mezo[i][j]) {
-                    if (mezo[i][j].getText() == "") {
+                    if (mezo[i][j].getText() == "↑" || mezo[i][j].getText() == "↓" || mezo[i][j].getText() == "→" || mezo[i][j].getText() == "←") {
                         mezo[i][j].setText("1");
                         pf.ertekHozzaadas(i, j, Integer.parseInt(mezo[i][j].getText()));
                     } else if (Integer.parseInt(mezo[i][j].getText()) < SzamokMeddig) {
                         mezo[i][j].setText(String.valueOf(Integer.parseInt(mezo[i][j].getText()) + 1));
                         pf.ertekHozzaadas(i, j, Integer.parseInt(mezo[i][j].getText()));
                     } else {
-                        mezo[i][j].setText("");
+                        mezo[i][j].setText(pf.nyil(i,j));
                         pf.ertekHozzaadas(i, j, 0);
                     }
 

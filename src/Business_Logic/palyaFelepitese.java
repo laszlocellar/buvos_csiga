@@ -31,15 +31,17 @@ public class palyaFelepitese {
     int PalyaMerete;
     @XmlElement
     int SzamokMeddig;
+    
 
     int[] korkorosSzamok;
-
+    String[][] korkorosIranyok;
+    
     public palyaFelepitese(int PalyaMerete, int SzamokMeddig) {
         this.SzamokMeddig = SzamokMeddig;
         this.PalyaMerete = PalyaMerete;
         palya = new int[PalyaMerete][PalyaMerete];
         korkorosSzamok = new int[PalyaMerete * PalyaMerete];
-
+        korkorosIranyok = new String[PalyaMerete][PalyaMerete];
     }
 
     public palyaFelepitese() {
@@ -167,27 +169,29 @@ public class palyaFelepitese {
 
             korkorosSzamok[korkorosSzamokValtozo] = palya[legkisebb + kor][j + kor];
             //System.out.println("Palya: " + palya[legkisebb+kor][j+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index: " +korkorosSzamokValtozo);
+            korkorosIranyok[legkisebb + kor][j + kor]="→";
             korkorosSzamokValtozo++;
         }
 
         for (int i = legkisebb + 1; i <= legnagyobb; i++) {
 
             korkorosSzamok[korkorosSzamokValtozo] = palya[i + kor][legnagyobb + kor];
+               korkorosIranyok[i + kor][legnagyobb + kor]="↓";         
             //System.out.println("Palya:  " + palya[i+kor][legnagyobb+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index:  " +korkorosSzamokValtozo);
             korkorosSzamokValtozo++;
         }
 
         for (int j = legnagyobb - 1; j >= legkisebb; j--) {
-
+korkorosIranyok[legnagyobb + kor][j + kor]="←";
             korkorosSzamok[korkorosSzamokValtozo] = palya[legnagyobb + kor][j + kor];
-            //System.out.println("Palya:  " + palya[legnagyobb+kor][j+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index: " +korkorosSzamokValtozo);
+//System.out.println("Palya:  " + palya[legnagyobb+kor][j+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index: " +korkorosSzamokValtozo);
             korkorosSzamokValtozo++;
         }
 
         for (int i = legnagyobb - 1; i >= legkisebb + 1; i--) {
-
+korkorosIranyok[i + kor][legkisebb + kor]="↑";
             korkorosSzamok[korkorosSzamokValtozo] = palya[i + kor][legkisebb + kor];
-            //System.out.println("Palya:  " + palya[i+kor][legkisebb+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index:  " +korkorosSzamokValtozo);
+//System.out.println("Palya:  " + palya[i+kor][legkisebb+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index:  " +korkorosSzamokValtozo);
             korkorosSzamokValtozo++;
         }
 
@@ -265,8 +269,45 @@ public class palyaFelepitese {
         if (palya[sor][oszlop] != 0) {
             return String.valueOf(palya[sor][oszlop]);
         } else {
-            return "";
+            return nyil(sor,oszlop);
         }
     }
 
+    
+    public String nyil(int n, int n2)
+    {
+        /*int legkisebb = PalyaMerete - PalyaMerete;
+        int legnagyobb = PalyaMerete - 1;
+        
+        
+         if (sor==legnagyobb+kor && oszlop==legkisebb+kor) return "↑";
+
+
+        if (sor==legkisebb+kor && oszlop<PalyaMerete-1+kor) return "→";
+        
+        if (sor==legkisebb+kor && oszlop==PalyaMerete-1+kor) return "↓";
+        
+          if (sor<PalyaMerete-1+kor && oszlop==legnagyobb+kor) return "↓";
+        
+        if (sor==PalyaMerete-1+kor && oszlop==PalyaMerete-1+kor) return "←";
+        
+        if (sor==PalyaMerete-1+kor && oszlop<PalyaMerete-1+kor) return "←";
+        
+        if (sor==PalyaMerete-1+kor && oszlop==legkisebb+kor) return "↑";
+        
+         if (sor<legnagyobb+kor && oszlop==legkisebb+kor) return "↑";
+        
+       System.out.println(PalyaMerete + " " + (PalyaMerete > 0) + " " + kor);
+
+       if (PalyaMerete-2>0)
+       {
+           System.out.println("Rekurzív " + sor + " " + oszlop + " " + PalyaMerete + " " + kor);
+            nyil(sor, oszlop, 2, 1);
+            
+       }*/
+           return korkorosIranyok[n][n2];
+        
+
+   
+    }
 }
