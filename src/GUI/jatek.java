@@ -53,14 +53,28 @@ public class jatek extends javax.swing.JFrame implements ActionListener {
                 mezo[n][n2].setFont(new Font("Arial Black", Font.PLAIN, 22));
                 mezo[n][n2].addActionListener(this);
                 mezo[n][n2].setPreferredSize(new Dimension(40, 40));
-                palya.add(mezo[n][n2]);
-
-                if ((mezo[n][n2].getText() != "↑") && (mezo[n][n2].getText() != "↓")  && (mezo[n][n2].getText() != "→")  && (mezo[n][n2].getText() != "←") && (mezo[n][n2].getText() != "X" )) {
+ palya.add(mezo[n][n2]);
+                
+                
+                if ((!(mezo[n][n2].getText().equalsIgnoreCase("↑"))) && (!(mezo[n][n2].getText().equalsIgnoreCase("↓"))) && (!(mezo[n][n2].getText().equalsIgnoreCase("→"))) && (!(mezo[n][n2].getText().equalsIgnoreCase("←"))) && (!(mezo[n][n2].getText().equalsIgnoreCase(""))))
+                {
                     mezo[n][n2].setEnabled(false);
                 }
+                
+                      
+              
+
+
 
             }
         }
+        
+        
+        
+        
+        
+        
+         
     }
 
     /**
@@ -76,6 +90,7 @@ public class jatek extends javax.swing.JFrame implements ActionListener {
         gombok = new javax.swing.JPanel();
         kilepes = new javax.swing.JButton();
         ellenorzes = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bűvös csiga játék");
@@ -90,7 +105,7 @@ public class jatek extends javax.swing.JFrame implements ActionListener {
         );
         palyaLayout.setVerticalGroup(
             palyaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 334, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         kilepes.setText("Kilépés");
@@ -114,7 +129,7 @@ public class jatek extends javax.swing.JFrame implements ActionListener {
             .addGroup(gombokLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(kilepes)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                 .addComponent(ellenorzes)
                 .addGap(50, 50, 50))
         );
@@ -127,6 +142,9 @@ public class jatek extends javax.swing.JFrame implements ActionListener {
                     .addComponent(ellenorzes)))
         );
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel1.setText("Bűvös csiga");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,15 +152,22 @@ public class jatek extends javax.swing.JFrame implements ActionListener {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(palya, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(gombok, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(gombok, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(palya, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(palya, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(28, 28, 28)
+                .addComponent(palya, javax.swing.GroupLayout.PREFERRED_SIZE, 231, Short.MAX_VALUE)
+                .addGap(9, 9, 9)
                 .addComponent(gombok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -179,14 +204,14 @@ public class jatek extends javax.swing.JFrame implements ActionListener {
         for (int i = 0; i < PalyaMerete; i++) {
             for (int j = 0; j < PalyaMerete; j++) {
                 if (e.getSource() == mezo[i][j]) {
-                    if (mezo[i][j].getText() == "↑" || mezo[i][j].getText() == "↓" || mezo[i][j].getText() == "→" || mezo[i][j].getText() == "←") {
+                    if (mezo[i][j].getText().equalsIgnoreCase("↑") || mezo[i][j].getText().equalsIgnoreCase("↓") || mezo[i][j].getText().equalsIgnoreCase("→") || mezo[i][j].getText().equalsIgnoreCase("←") || mezo[i][j].getText().equalsIgnoreCase("")) {
                         mezo[i][j].setText("1");
                         pf.ertekHozzaadas(i, j, Integer.parseInt(mezo[i][j].getText()));
                     } else if (Integer.parseInt(mezo[i][j].getText()) < SzamokMeddig) {
                         mezo[i][j].setText(String.valueOf(Integer.parseInt(mezo[i][j].getText()) + 1));
                         pf.ertekHozzaadas(i, j, Integer.parseInt(mezo[i][j].getText()));
                     } else {
-                        mezo[i][j].setText(pf.nyil(i,j));
+                        mezo[i][j].setText(pf.nyil(i, j));
                         pf.ertekHozzaadas(i, j, 0);
                     }
 
@@ -200,6 +225,7 @@ public class jatek extends javax.swing.JFrame implements ActionListener {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ellenorzes;
     private javax.swing.JPanel gombok;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton kilepes;
     private javax.swing.JPanel palya;
     // End of variables declaration//GEN-END:variables

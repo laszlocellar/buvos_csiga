@@ -105,6 +105,7 @@ public class eredmeny extends javax.swing.JFrame {
 
             menu m = new menu();
             m.setVisible(true);
+            dispose();
         } catch (NumberFormatException nfe) {
             showMessageDialog(null, "Hibába ütköztem.", "Hiba", ERROR_MESSAGE);
         }

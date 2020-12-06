@@ -8,25 +8,24 @@ package GUI;
 import Business_Logic.*;
 import java.sql.*;
 
-
-
 /**
  *
  * @author Cellar-PC
  */
 public class mentes extends javax.swing.JFrame {
-palyaFelepitese pf;
-String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-String DB_URL = "jdbc:mysql://localhost:3306/buvoscsiga";
-String USER = "root";
-String PASS = "";
+
+    palyaFelepitese pf;
+    String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    String DB_URL = "jdbc:mysql://localhost:3306/buvoscsiga";
+    String USER = "root";
+    String PASS = "";
 
     /**
      * Creates new form mentes
      */
     public mentes(palyaFelepitese palyafelepitese) {
         initComponents();
-        this.pf=palyafelepitese;
+        this.pf = palyafelepitese;
     }
 
     /**
@@ -109,80 +108,65 @@ String PASS = "";
     }//GEN-LAST:event_palya_nevActionPerformed
 
     private void mentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mentesActionPerformed
-    String nev=palya_nev.getText();
+        String nev = palya_nev.getText();
         Connection conn = null;
-   Statement stmt = null;
-   try{
-      //STEP 2: Register JDBC driver
-      Class.forName("com.mysql.jdbc.Driver");
+        Statement stmt = null;
+        try {
+            
+            Class.forName("com.mysql.jdbc.Driver");
 
-      //STEP 3: Open a connection
-      System.out.println("Connecting to a selected database...");
-      conn = DriverManager.getConnection(DB_URL, USER, PASS);
-      System.out.println("Connected database successfully...");
-      
-      //STEP 4: Execute a query
-      System.out.println("Inserting records into the table...");
-      stmt = conn.createStatement();
-      
-      
-      
-      PreparedStatement st = conn.prepareStatement("SELECT nev FROM palyak WHERE nev=?");
-            st.setString(1,nev);
+            
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            
+            stmt = conn.createStatement();
+
+            PreparedStatement st = conn.prepareStatement("SELECT nev FROM palyak WHERE nev=?");
+            st.setString(1, nev);
             st.execute();
-            if(st.getResultSet().next()) //VAN ILYEN 
+            if (st.getResultSet().next()) //VAN ILYEN 
             {
-       PreparedStatement preparedStmt = conn.prepareStatement("UPDATE INTO palyak " +
-                   "VALUES (?,?)");
-       preparedStmt.setString(1, nev );
-        preparedStmt.setString(2, pf.XMLmentes() );
-        preparedStmt.executeUpdate();
-        
-            }
-            
-            else //nincs ilyen név
-            {PreparedStatement preparedStmt = conn.prepareStatement("INSERT INTO palyak " +
-                   "VALUES (?,?)");
-       preparedStmt.setString(1, nev );
-        preparedStmt.setString(2, pf.XMLmentes() );
-        preparedStmt.executeUpdate();
-            }
-            
-      System.out.println("Inserted records into the table...");
+                PreparedStatement preparedStmt = conn.prepareStatement("UPDATE palyak set palya = ? WHERE nev = ?");
+                preparedStmt.setString(1, pf.XMLmentes());
+                preparedStmt.setString(2, nev);
+                preparedStmt.executeUpdate();
 
-   }catch(SQLException se){
-      //Handle errors for JDBC
-      se.printStackTrace();
-   }catch(Exception e){
-      //Handle errors for Class.forName
-      e.printStackTrace();
-   }finally{
-      //finally block used to close resources
-      try{
-         if(stmt!=null)
-            conn.close();
-      }catch(SQLException se){
-      }// do nothing
-      try{
-         if(conn!=null)
-            conn.close();
-      }catch(SQLException se){
-         se.printStackTrace();
-      }//end finally try
-   }//end try
-        
-        
-        
-       dispose();
-       
-       
+            } else //nincs ilyen név
+            {
+                PreparedStatement preparedStmt = conn.prepareStatement("INSERT INTO palyak " + "VALUES (?,?)");
+                preparedStmt.setString(1, nev);
+                preparedStmt.setString(2, pf.XMLmentes());
+                preparedStmt.executeUpdate();
+            }
+
+           
+
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    conn.close();
+                }
+            } catch (SQLException se) {
+            }
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+
+        dispose();
+
     }//GEN-LAST:event_mentesActionPerformed
 
     /**
      * @param args the command line arguments
      */
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

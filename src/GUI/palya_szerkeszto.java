@@ -6,21 +6,12 @@
 package GUI;
 
 import Business_Logic.palyaFelepitese;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import java.awt.event.ActionListener;
-import static java.lang.Math.sqrt;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -50,17 +41,17 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
         palya.setVisible(true);
         gombok.setLayout(new GridLayout(1, 2));
         gombok.setVisible(true);
-        int valtozo=0;
+        int valtozo = 0;
 
         pf = new palyaFelepitese(PalyaMerete, SzamokMeddig);
-                pf.palyaKorkoros(PalyaMerete, 0,0);
+        pf.palyaKorkoros(PalyaMerete, 0, 0);
 
         for (int n = 0; n < PalyaMerete; n++) {
             for (int n2 = 0; n2 < PalyaMerete; n2++) {
 
                 mezo[n][n2] = new JButton();
-                
-                mezo[n][n2].setText(pf.nyil(n,n2));
+
+                mezo[n][n2].setText(pf.nyil(n, n2));
                 mezo[n][n2].setFont(new Font("Arial Black", Font.PLAIN, 22));
                 mezo[n][n2].setFocusable(false);
                 mezo[n][n2].addActionListener(this);
@@ -68,7 +59,7 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
                 mezo[n][n2].setPreferredSize(new Dimension(40, 40));
                 palya.add(mezo[n][n2]);
                 valtozo++;
-            }   
+            }
         }
 
     }
@@ -85,6 +76,7 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
         jPanel2 = new javax.swing.JPanel();
         palya = new javax.swing.JPanel();
         gombok = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         palya_mentese = new javax.swing.JButton();
         jatek_inditasa = new javax.swing.JButton();
 
@@ -111,8 +103,22 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
         );
         palyaLayout.setVerticalGroup(
             palyaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 290, Short.MAX_VALUE)
+            .addGap(0, 281, Short.MAX_VALUE)
         );
+
+        javax.swing.GroupLayout gombokLayout = new javax.swing.GroupLayout(gombok);
+        gombok.setLayout(gombokLayout);
+        gombokLayout.setHorizontalGroup(
+            gombokLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 66, Short.MAX_VALUE)
+        );
+        gombokLayout.setVerticalGroup(
+            gombokLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 43, Short.MAX_VALUE)
+        );
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel1.setText("Pályaszerkesztő");
 
         palya_mentese.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         palya_mentese.setText("Pálya mentése");
@@ -130,26 +136,6 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
             }
         });
 
-        javax.swing.GroupLayout gombokLayout = new javax.swing.GroupLayout(gombok);
-        gombok.setLayout(gombokLayout);
-        gombokLayout.setHorizontalGroup(
-            gombokLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gombokLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(palya_mentese)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(jatek_inditasa)
-                .addContainerGap())
-        );
-        gombokLayout.setVerticalGroup(
-            gombokLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gombokLayout.createSequentialGroup()
-                .addGroup(gombokLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(palya_mentese)
-                    .addComponent(jatek_inditasa))
-                .addGap(0, 12, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -157,30 +143,49 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(palya, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
-                    .addComponent(gombok, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(palya, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(palya_mentese)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(gombok, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jatek_inditasa)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(palya, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
-                .addGap(10, 10, 10)
-                .addComponent(gombok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1)
+                .addGap(28, 28, 28)
+                .addComponent(palya, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 11, Short.MAX_VALUE)
+                        .addComponent(gombok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(palya_mentese)
+                            .addComponent(jatek_inditasa))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void palya_menteseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_palya_menteseActionPerformed
-       
-        try {
-            
-            pf.palyaKorkoros(PalyaMerete, 0, 0);
-            if (pf.palyaJo() == true) {
 
-                
+        try {
+
+            pf.palyaKorkoros(PalyaMerete, 0, 0);
+
+            if (pf.palyaJo() == true && pf.vaneHely() == true) {
+
                 mentes m = new mentes(pf);
                 m.setVisible(true);
             } else {
@@ -213,6 +218,7 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel gombok;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton jatek_inditasa;
     private javax.swing.JPanel palya;
@@ -225,22 +231,17 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
         for (int i = 0; i < PalyaMerete; i++) {
             for (int j = 0; j < PalyaMerete; j++) {
                 if (e.getSource() == mezo[i][j]) {
-                    if (mezo[i][j].getText() == "↑" || mezo[i][j].getText() == "↓" || mezo[i][j].getText() == "→" || mezo[i][j].getText() == "←" || mezo[i][j].getText() == "X") {
+                    if (mezo[i][j].getText() == "↑" || mezo[i][j].getText() == "↓" || mezo[i][j].getText() == "→" || mezo[i][j].getText() == "←" || mezo[i][j].getText() == "") {
                         mezo[i][j].setText("1");
                         pf.ertekHozzaadas(i, j, Integer.parseInt(mezo[i][j].getText()));
-        
 
                     } else if (Integer.parseInt(mezo[i][j].getText()) < SzamokMeddig) {
                         mezo[i][j].setText(String.valueOf(Integer.parseInt(mezo[i][j].getText()) + 1));
                         pf.ertekHozzaadas(i, j, Integer.parseInt(mezo[i][j].getText()));
-                        
-
 
                     } else {
-                        mezo[i][j].setText(pf.nyil(i,j));
+                        mezo[i][j].setText(pf.nyil(i, j));
                         pf.ertekHozzaadas(i, j, 0);
-                   
-
 
                     }
 

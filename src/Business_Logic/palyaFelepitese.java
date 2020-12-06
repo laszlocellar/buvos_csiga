@@ -6,10 +6,8 @@
 package Business_Logic;
 
 import GUI.jatek;
-import java.awt.GridLayout;
 import java.io.StringReader;
 import java.io.StringWriter;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -31,11 +29,11 @@ public class palyaFelepitese {
     int PalyaMerete;
     @XmlElement
     int SzamokMeddig;
-    
-
+    @XmlElement
     int[] korkorosSzamok;
+    @XmlElement
     String[][] korkorosIranyok;
-    
+
     public palyaFelepitese(int PalyaMerete, int SzamokMeddig) {
         this.SzamokMeddig = SzamokMeddig;
         this.PalyaMerete = PalyaMerete;
@@ -75,14 +73,50 @@ public class palyaFelepitese {
 
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
-             palyaFelepitese pf = (palyaFelepitese) jaxbUnmarshaller.unmarshal(new StringReader(XMLpalya));
+            palyaFelepitese pf = (palyaFelepitese) jaxbUnmarshaller.unmarshal(new StringReader(XMLpalya));
 
-            System.out.println(pf.toString());
-            System.out.println("" + PalyaMerete + " " + SzamokMeddig);
             jatek j = new jatek(pf.PalyaMerete, pf.PalyaMerete, pf);
-                j.setVisible(true);
+            j.setVisible(true);
         } catch (JAXBException e) {
             e.printStackTrace();
+        }
+    }
+
+    public boolean vaneHely() {
+
+        int j = 0;
+        boolean igaz = false;
+
+        for (int i = 0; i < korkorosSzamok.length; i++) {
+            if (korkorosSzamok[i] != 0) {
+                j = i;
+                break;
+            }
+        }
+
+        int legutolso = korkorosSzamok[j];
+
+        int nullak = 0;
+        for (int i = j; i < PalyaMerete * PalyaMerete; i++) {
+
+            if (korkorosSzamok[i] != 0) {
+
+                if (korkorosSzamok[i] - legutolso - 1 <= nullak) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            } else {
+                nullak++;
+            }
+
+        }
+        if (igaz == false) {
+
+            return false;
+        } else {
+            return true;
         }
     }
 
@@ -152,10 +186,10 @@ public class palyaFelepitese {
                 break;
             }
         }
-
-        if (sor == true) {
+        if (sor == true /*&& vaneHely() == true*/) {
             return true;
         } else {
+
             return false;
         }
 
@@ -168,45 +202,37 @@ public class palyaFelepitese {
         for (int j = legkisebb; j < legnagyobb; j++) {
 
             korkorosSzamok[korkorosSzamokValtozo] = palya[legkisebb + kor][j + kor];
-            System.out.println("Palya: " + palya[legkisebb+kor][j+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index: " +korkorosSzamokValtozo);
-           
-            korkorosIranyok[legkisebb + kor][j + kor]="→";
-            
-           
+
+            korkorosIranyok[legkisebb + kor][j + kor] = "→";
+
             korkorosSzamokValtozo++;
         }
 
         for (int i = legkisebb; i < legnagyobb; i++) {
 
             korkorosSzamok[korkorosSzamokValtozo] = palya[i + kor][legnagyobb + kor];
-               korkorosIranyok[i + kor][legnagyobb + kor]="↓";         
-            System.out.println("Palya:  " + palya[i+kor][legnagyobb+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index:  " +korkorosSzamokValtozo);
+            korkorosIranyok[i + kor][legnagyobb + kor] = "↓";
             korkorosSzamokValtozo++;
         }
 
         for (int j = legnagyobb; j > legkisebb; j--) {
-korkorosIranyok[legnagyobb + kor][j + kor]="←";
+            korkorosIranyok[legnagyobb + kor][j + kor] = "←";
             korkorosSzamok[korkorosSzamokValtozo] = palya[legnagyobb + kor][j + kor];
-System.out.println("Palya:  " + palya[legnagyobb+kor][j+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index: " +korkorosSzamokValtozo);
             korkorosSzamokValtozo++;
         }
 
         for (int i = legnagyobb; i > legkisebb + 1; i--) {
-korkorosIranyok[i + kor][legkisebb + kor]="↑";
+            korkorosIranyok[i + kor][legkisebb + kor] = "↑";
             korkorosSzamok[korkorosSzamokValtozo] = palya[i + kor][legkisebb + kor];
-System.out.println("Palya:  " + palya[i+kor][legkisebb+kor] + "korkoros: " +korkorosSzamok[korkorosSzamokValtozo] +" Index:  " +korkorosSzamokValtozo);
             korkorosSzamokValtozo++;
         }
-        
-        korkorosIranyok[legkisebb+kor+1][legkisebb+kor]="→";
-        
-        
 
         if (PalyaMerete - 2 > 0) {
+            korkorosIranyok[legkisebb + kor + 1][legkisebb + kor] = "→";
             palyaKorkoros(PalyaMerete - 2, kor + 1, korkorosSzamokValtozo);
+        } else {
+            korkorosIranyok[legnagyobb + kor][legkisebb + kor] = "";
         }
-        else korkorosIranyok[legnagyobb+kor][legkisebb+kor]="X";
-    
 
     }
 
@@ -224,16 +250,13 @@ System.out.println("Palya:  " + palya[i+kor][legkisebb+kor] + "korkoros: " +kork
         int legutolso = korkorosSzamok[j];
 
         for (int i = j + 1; i < korkorosSzamok.length; i++) {
-            System.out.println(korkorosSzamok[i]);
             if (korkorosSzamok[i] != 0) {
                 if (legutolso < SzamokMeddig) {
-                    if (legutolso < korkorosSzamok[i]) {
+                    if (legutolso + 1 == korkorosSzamok[i]) {
                         folytonos = true;
-                        //System.out.println(folytonos + "1. legutolso: " +legutolso + " Körkörös: " +korkorosSzamok[i]);
                         legutolso = korkorosSzamok[i];
                     } else {
                         folytonos = false;
-                        //System.out.println(folytonos + "2. legutolso: " +legutolso + " Körkörös: " +korkorosSzamok[i]);
                         break;
                     }
                     if (folytonos == false) {
@@ -242,12 +265,10 @@ System.out.println("Palya:  " + palya[i+kor][legkisebb+kor] + "korkoros: " +kork
                 } else if (legutolso == SzamokMeddig) {
                     if (korkorosSzamok[i] == 1) {
                         folytonos = true;
-                        //System.out.println(folytonos + "3. legutolso: " +legutolso + " Körkörös: " +korkorosSzamok[i]);
                         legutolso = korkorosSzamok[i];
                     }
                 } else {
                     folytonos = false;
-                    //System.out.println(folytonos + "4. legutolso: " +legutolso + " Körkörös: " +korkorosSzamok[i]);
                     break;
                 }
                 if (folytonos == false) {
@@ -261,7 +282,6 @@ System.out.println("Palya:  " + palya[i+kor][legkisebb+kor] + "korkoros: " +kork
 
         }
 
-        System.out.println(folytonos);
         if (folytonos == false) {
             return false;
         } else {
@@ -278,45 +298,13 @@ System.out.println("Palya:  " + palya[i+kor][legkisebb+kor] + "korkoros: " +kork
         if (palya[sor][oszlop] != 0) {
             return String.valueOf(palya[sor][oszlop]);
         } else {
-            return nyil(sor,oszlop);
+            return nyil(sor, oszlop);
         }
     }
 
-    
-    public String nyil(int n, int n2)
-    {
-        /*int legkisebb = PalyaMerete - PalyaMerete;
-        int legnagyobb = PalyaMerete - 1;
-        
-        
-         if (sor==legnagyobb+kor && oszlop==legkisebb+kor) return "↑";
+    public String nyil(int n, int n2) {
 
+        return korkorosIranyok[n][n2];
 
-        if (sor==legkisebb+kor && oszlop<PalyaMerete-1+kor) return "→";
-        
-        if (sor==legkisebb+kor && oszlop==PalyaMerete-1+kor) return "↓";
-        
-          if (sor<PalyaMerete-1+kor && oszlop==legnagyobb+kor) return "↓";
-        
-        if (sor==PalyaMerete-1+kor && oszlop==PalyaMerete-1+kor) return "←";
-        
-        if (sor==PalyaMerete-1+kor && oszlop<PalyaMerete-1+kor) return "←";
-        
-        if (sor==PalyaMerete-1+kor && oszlop==legkisebb+kor) return "↑";
-        
-         if (sor<legnagyobb+kor && oszlop==legkisebb+kor) return "↑";
-        
-       System.out.println(PalyaMerete + " " + (PalyaMerete > 0) + " " + kor);
-
-       if (PalyaMerete-2>0)
-       {
-           System.out.println("Rekurzív " + sor + " " + oszlop + " " + PalyaMerete + " " + kor);
-            nyil(sor, oszlop, 2, 1);
-            
-       }*/
-           return korkorosIranyok[n][n2];
-        
-
-   
     }
 }
