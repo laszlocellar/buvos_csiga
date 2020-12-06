@@ -184,8 +184,7 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
 
             pf.palyaKorkoros(PalyaMerete, 0, 0);
 
-            if (pf.palyaJo() == true && pf.vaneHely() == true) {
-
+            if ((pf.palyaJo() == true) && (pf.vaneHely() == true)) {
                 mentes m = new mentes(pf);
                 m.setVisible(true);
             } else {
@@ -200,8 +199,9 @@ public class palya_szerkeszto extends javax.swing.JFrame implements ActionListen
     private void jatek_inditasaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jatek_inditasaActionPerformed
 
         try {
+            
             pf.palyaKorkoros(PalyaMerete, 0, 0);
-            if (pf.palyaJo() == true) {
+            if ((pf.palyaJo() == true) && (pf.vaneHely() == true)) {
 
                 dispose();
                 jatek j = new jatek(PalyaMerete, SzamokMeddig, pf);

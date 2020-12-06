@@ -18,11 +18,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  *
  * @author Cellár László
+ * 
+ * Itt tároljuk el a palya nevű kétdimenziós tömbben a pálya "vizuális" felépítését, a pálya méretét,
+ * hogy meddig lehet számot megadni, a pálya körkörös felépítését a csiga spirál kialakításához,
+ * illetve a korkorosIranyok mutatják, hogy merre kanyarodik a csigavonal.
+ * Az @XmlElement annotációt kapó részeket konvertáljuk át XML-be a mentés során,
+ * illetve ebbe olvassuk vissza a pályát beolvasás során.
+ * 
  */
 @XmlRootElement
 public class palyaFelepitese {
 
-    //palyaFelepitese palyaFelepitese;
+    
     @XmlElement
     int[][] palya;
     @XmlElement
@@ -33,7 +40,17 @@ public class palyaFelepitese {
     int[] korkorosSzamok;
     @XmlElement
     String[][] korkorosIranyok;
-
+    
+    
+/**
+ *
+ * @author Cellár László
+ * 
+ * A konstruktorban kapott értékeket tároljuk el helyi változókba, illetve ezekből számolunk ki olyan dolgokat,
+ * mint például a kétdimenziós tömb mérete, vagy pedig a körkörös pályához tartozó tömb mérete.
+ * 
+ */
+    
     public palyaFelepitese(int PalyaMerete, int SzamokMeddig) {
         this.SzamokMeddig = SzamokMeddig;
         this.PalyaMerete = PalyaMerete;
@@ -41,10 +58,24 @@ public class palyaFelepitese {
         korkorosSzamok = new int[PalyaMerete * PalyaMerete];
         korkorosIranyok = new String[PalyaMerete][PalyaMerete];
     }
+    
+    
+    /**
+     * 
+     * Üres konstruktor az XML számára.
+     * 
+     */
 
     public palyaFelepitese() {
 
     }
+    
+    /**
+     * 
+     * @author Szőllősi Viktor
+     * JAXB segítségével készítünk XML-t.
+     * A @return a pálya felépítését adja vissza XML-ként.
+     */
 
     public String XMLmentes() {
         StringWriter sw = new StringWriter();
@@ -66,6 +97,13 @@ public class palyaFelepitese {
         return xml;
     }
 
+     /**
+     * 
+     * @author Szőllősi Viktor
+     * JAXB segítségével töltjük be az XML-t.
+     * 
+     */
+    
     public void XMLbetoltes(String XMLpalya) {
         JAXBContext jaxbContext;
         try {
@@ -81,11 +119,22 @@ public class palyaFelepitese {
             e.printStackTrace();
         }
     }
+    
+    
+    /**
+     * 
+     * @author Cellár László
+     * 
+     * A @return igaz vagy hamis értéket ad vissza, attól függően, hogy van az adott számot elhelyezhetjük-e
+     * a pályán vagy sem. Azt határozza meg, hogy két lerakott szám között marad-e még elég hely, hogy a számok
+     * folytonosságát ne szakítsuk meg.
+     * 
+     */
 
     public boolean vaneHely() {
 
         int j = 0;
-        boolean igaz = false;
+        boolean igaz = true;
 
         for (int i = 0; i < korkorosSzamok.length; i++) {
             if (korkorosSzamok[i] != 0) {
@@ -97,7 +146,7 @@ public class palyaFelepitese {
         int legutolso = korkorosSzamok[j];
 
         int nullak = 0;
-        for (int i = j; i < PalyaMerete * PalyaMerete; i++) {
+        for (int i = j+1; i < PalyaMerete * PalyaMerete; i++) {
 
             if (korkorosSzamok[i] != 0) {
 
@@ -120,6 +169,15 @@ public class palyaFelepitese {
         }
     }
 
+    
+    /**
+     * 
+     * @author Cellár László
+     * 
+     * A @return igaz vagy hamis értéket ad vissza, attól függően, hogy a pálya felépítése megfelelő-e.
+     * Ellenőrzi, hogy egy sorban és oszlopban nincsenek-e ismétlődő számok.
+     * 
+     */
     public boolean palyaJo() {
         boolean sor = false;
         int[] szamokTomb = new int[SzamokMeddig + 1];
@@ -194,12 +252,21 @@ public class palyaFelepitese {
         }
 
     }
+    
+     /**
+     * 
+     * @author Cellár László
+     * 
+     * Elkészíti a pálya körkörös felépítését, amely azért fontos, mert a számokat körkörösen
+     * kell vizsgálnunk. Ez a körkörösség a csigavonal miatt szükséges.
+     * 
+     */
 
     public void palyaKorkoros(int PalyaMerete, int kor, int korkorosSzamokValtozo) {
         int legkisebb = PalyaMerete - PalyaMerete;
         int legnagyobb = PalyaMerete - 1;
 
-        for (int j = legkisebb; j < legnagyobb; j++) {
+        for (int j = legkisebb; j <=  legnagyobb; j++) {
 
             korkorosSzamok[korkorosSzamokValtozo] = palya[legkisebb + kor][j + kor];
 
@@ -208,25 +275,29 @@ public class palyaFelepitese {
             korkorosSzamokValtozo++;
         }
 
-        for (int i = legkisebb; i < legnagyobb; i++) {
+        for (int i = legkisebb+1; i <=  legnagyobb; i++) {
 
             korkorosSzamok[korkorosSzamokValtozo] = palya[i + kor][legnagyobb + kor];
             korkorosIranyok[i + kor][legnagyobb + kor] = "↓";
             korkorosSzamokValtozo++;
         }
 
-        for (int j = legnagyobb; j > legkisebb; j--) {
+        for (int j = legnagyobb-1; j >=  legkisebb; j--) {
             korkorosIranyok[legnagyobb + kor][j + kor] = "←";
             korkorosSzamok[korkorosSzamokValtozo] = palya[legnagyobb + kor][j + kor];
             korkorosSzamokValtozo++;
         }
 
-        for (int i = legnagyobb; i > legkisebb + 1; i--) {
+        for (int i = legnagyobb-1; i >= legkisebb + 1; i--) {
             korkorosIranyok[i + kor][legkisebb + kor] = "↑";
             korkorosSzamok[korkorosSzamokValtozo] = palya[i + kor][legkisebb + kor];
             korkorosSzamokValtozo++;
         }
-
+        
+        korkorosIranyok[legkisebb+kor][legnagyobb+kor]="↓";
+        korkorosIranyok[legnagyobb+kor][legnagyobb+kor]="←";
+        korkorosIranyok[legnagyobb+kor][legkisebb+kor]="↑";
+        
         if (PalyaMerete - 2 > 0) {
             korkorosIranyok[legkisebb + kor + 1][legkisebb + kor] = "→";
             palyaKorkoros(PalyaMerete - 2, kor + 1, korkorosSzamokValtozo);
@@ -235,6 +306,17 @@ public class palyaFelepitese {
         }
 
     }
+    
+    
+     /**
+     * 
+     * @author Cellár László
+     * 
+     * 
+     * A @return igaz vagy hamis értéket ad vissza, attól függően, hogy a pálya folytonos-e,
+     * azaz a számok folytonosan jönnek-e. (1 után 2, 2 után 3, illetve n után újból 1.)
+     * 
+     */
 
     public boolean folytonosE() {
         int j = 0;
@@ -250,13 +332,14 @@ public class palyaFelepitese {
         int legutolso = korkorosSzamok[j];
 
         for (int i = j + 1; i < korkorosSzamok.length; i++) {
+            System.out.println(korkorosSzamok[i]);
             if (korkorosSzamok[i] != 0) {
                 if (legutolso < SzamokMeddig) {
                     if (legutolso + 1 == korkorosSzamok[i]) {
                         folytonos = true;
                         legutolso = korkorosSzamok[i];
                     } else {
-                        folytonos = false;
+                        folytonos= false;
                         break;
                     }
                     if (folytonos == false) {
@@ -288,12 +371,30 @@ public class palyaFelepitese {
             return true;
         }
     }
+    
+    
+     /**
+     * 
+     * @author Szőllősi Viktor
+     * 
+     * A pálya egy adott mezőjén egy adott érték elhelyezésést teszi lehetővé.
+     * 
+     */
 
     public void ertekHozzaadas(int sor, int oszlop, int szam) {
         palya[sor][oszlop] = szam;
 
     }
 
+   /**
+     * 
+     * @author Szőllősi Viktor
+     * 
+     * Visszaadja a pálya egy adott mezőjének értékét.
+     * Ha nincs még értéke (nem helyeztünk el rajta számot), akkor az irányt adja vissza.
+     * 
+     */
+    
     public String ertekLekerdezes(int sor, int oszlop) {
         if (palya[sor][oszlop] != 0) {
             return String.valueOf(palya[sor][oszlop]);
@@ -302,6 +403,14 @@ public class palyaFelepitese {
         }
     }
 
+/**
+     * 
+     * @author Szőllősi Viktor
+     * 
+     * A bejövő paraméterei alapján visszaadja a megfelelő irányt.
+     * 
+     */
+    
     public String nyil(int n, int n2) {
 
         return korkorosIranyok[n][n2];
