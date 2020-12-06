@@ -8,15 +8,12 @@ package GUI;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
 
-
 public class menu extends javax.swing.JFrame {
 
-  
     public menu() {
         initComponents();
 
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -201,20 +198,19 @@ public class menu extends javax.swing.JFrame {
     private void palya_szerkeszteseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_palya_szerkeszteseActionPerformed
 
         /**
-         * 
+         *
          * @author Szőllősi Viktor
-         * 
-         * Eltárolja a szövegmezőkből kiolvasott értékeket, majd egy vizsgálat utána
-         * eldönti, hogy a pálya létrehozható-e vagy sem.
+         *
+         * Eltárolja a szövegmezőkből kiolvasott értékeket, majd egy vizsgálat
+         * utána eldönti, hogy a pálya létrehozható-e vagy sem.
          */
-        
         try {
             int PalyaMerete = Integer.parseInt(palya_merete.getText().trim());
             int SzamokMeddig = Integer.parseInt(szamok_meddig.getText().trim());
             if (PalyaMerete > 0 && SzamokMeddig <= PalyaMerete * PalyaMerete) {
 
                 dispose();
-                palya_szerkeszto psz = new palya_szerkeszto(PalyaMerete, SzamokMeddig);
+                palyaszerkeszto psz = new palyaszerkeszto(PalyaMerete, SzamokMeddig);
                 this.setVisible(false);
                 psz.setVisible(true);
             } else {
@@ -242,11 +238,11 @@ public class menu extends javax.swing.JFrame {
     private void betoltes_palyaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_betoltes_palyaActionPerformed
         /**
          * @author Szőllősi Viktor
-         * 
+         *
          * Betöltésre vonatkozó gomb esetén megnyitja a betoltes JFrame-et.
-         * 
+         *
          */
-        
+
         betoltes b = new betoltes();
         b.setVisible(true);
         dispose();
@@ -258,18 +254,17 @@ public class menu extends javax.swing.JFrame {
     }//GEN-LAST:event_kilepesActionPerformed
 
     private void szabalyokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_szabalyokActionPerformed
-        
-         /**
+
+        /**
          * @author Szőllősi Viktor
-         * 
-         * Játékszabályzatra vonatkozó gomb megnyomása esetén megnyitja a jatekszabalyzat JFrame-et.
-         * 
+         *
+         * Játékszabályzatra vonatkozó gomb megnyomása esetén megnyitja a
+         * jatekszabalyzat JFrame-et.
+         *
          */
-          
         jatekszabalyzat jsz = new jatekszabalyzat();
         jsz.setVisible(true);
     }//GEN-LAST:event_szabalyokActionPerformed
-
 
     public static void main(String args[]) {
         try {

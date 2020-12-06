@@ -34,6 +34,7 @@ public class jatekszabalyzat extends javax.swing.JFrame {
         vissza = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Játékszabályzat");
 
         jTextArea1.setColumns(10);
         jTextArea1.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
@@ -102,19 +103,18 @@ public class jatekszabalyzat extends javax.swing.JFrame {
 
     private void visszaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visszaActionPerformed
         /**
-         * 
+         *
          * @author Szőllősi Viktor
-         * 
-         * Ez a JFrame a játékszabályzatot jeleníti meg.
-         * Illetve visszalépés esetén megnyitja a menüt.
-         * 
+         *
+         * Ez a JFrame a játékszabályzatot jeleníti meg. Illetve visszalépés
+         * esetén megnyitja a menüt.
+         *
          */
-        
+
         menu m = new menu();
         m.setVisible(true);
         dispose();
     }//GEN-LAST:event_visszaActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

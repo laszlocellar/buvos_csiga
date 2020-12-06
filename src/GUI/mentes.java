@@ -11,9 +11,9 @@ import java.sql.*;
 /**
  *
  * @author Cellár László
- * 
+ *
  * Adatbázis kapcsolat létrehozásához szükséges adatokat definiálunk.
- * 
+ *
  */
 public class mentes extends javax.swing.JFrame {
 
@@ -25,16 +25,15 @@ public class mentes extends javax.swing.JFrame {
 
     /**
      * @author Szőllősi Viktor
-     * 
+     *
      * A konstruktorban kapott pályafelépítést tárolja el.
+     * @param palyafelepitese A pálya felépítését tárolja.
      *
      */
-    
     public mentes(palyaFelepitese palyafelepitese) {
         initComponents();
         this.pf = palyafelepitese;
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -46,6 +45,7 @@ public class mentes extends javax.swing.JFrame {
         mentes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Mentés");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Kérem nevezze el a pályát!");
@@ -111,28 +111,25 @@ public class mentes extends javax.swing.JFrame {
     }//GEN-LAST:event_palya_nevActionPerformed
 
     private void mentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mentesActionPerformed
-       
+
         /**
-         * 
+         *
          * @author Cellár László
-         * 
-         * Két különböző SQL utasítást definiáltunk, az egyik akkor hajtódik végre,
-         * ha még nincs a megadott névvel pálya.
-         * A másik, akkor ha már van olyan névvel pálya. Ebben az esetben felülírja
-         * az előző pályát.
-         * 
+         *
+         * Két különböző SQL utasítást definiáltunk, az egyik akkor hajtódik
+         * végre, ha még nincs a megadott névvel pálya. A másik, akkor ha már
+         * van olyan névvel pálya. Ebben az esetben felülírja az előző pályát.
+         *
          */
-        
         String nev = palya_nev.getText();
         Connection conn = null;
         Statement stmt = null;
         try {
-            
+
             Class.forName("com.mysql.jdbc.Driver");
 
-            
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            
+
             stmt = conn.createStatement();
 
             PreparedStatement st = conn.prepareStatement("SELECT nev FROM palyak WHERE nev=?");
@@ -152,8 +149,6 @@ public class mentes extends javax.swing.JFrame {
                 preparedStmt.setString(2, pf.XMLmentes());
                 preparedStmt.executeUpdate();
             }
-
-           
 
         } catch (SQLException se) {
             se.printStackTrace();
@@ -178,7 +173,6 @@ public class mentes extends javax.swing.JFrame {
         dispose();
 
     }//GEN-LAST:event_mentesActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

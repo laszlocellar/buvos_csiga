@@ -18,26 +18,28 @@ import static javax.swing.JOptionPane.showMessageDialog;
 /**
  *
  * @author Cellár László
- * 
+ *
  * Létrehozzuk a mezőként szolgáló gombokat és betöltjük a létrehozott pályát.
- * 
+ *
  */
-
 public class jatek extends javax.swing.JFrame implements ActionListener {
 
     JButton[][] mezo;
     int PalyaMerete, SzamokMeddig;
     palyaFelepitese pf;
 
-   /**
-    *
-    * @author Cellár László
-    * 
-    * A konstruktoron keresztül kapott értékekből meghatározzuk és létrehozzuk a pálya méretét,
-    * elmentjük, hogy meddig lehet menni a számokkal, illetve betöltjük a pályát, amelyet már létrehoztunk.
-    * 
-    */
-    
+    /**
+     *
+     * @author Cellár László
+     *
+     * A konstruktoron keresztül kapott értékekből meghatározzuk és létrehozzuk
+     * a pálya méretét, elmentjük, hogy meddig lehet menni a számokkal, illetve
+     * betöltjük a pályát, amelyet már létrehoztunk.
+     * @param inputPalyaMerete A pálya méretét jelzi.
+     * @param inputSzamokMeddig Azt mutatja, hogy meddig használhatunk fel számokat a játék során.
+     * @param palyafelepitese A létrehozott pályát tárolja.
+     *
+     */
     public jatek(int inputPalyaMerete, int inputSzamokMeddig, palyaFelepitese palyafelepitese) {
         initComponents();
         PalyaMerete = inputPalyaMerete;
@@ -48,15 +50,14 @@ public class jatek extends javax.swing.JFrame implements ActionListener {
     }
 
     /**
-     * 
+     *
      * @author Cellár László
-     * 
-     * Itt töljük be a pályát, amelyet már létrehozunk.
-     * Megalkotjuk a mezőként funkcionáló gombokat, valamint betöltjük rájuk a megfelelő tartalmakat.
-     * A pályaszerkesztő során létrehozott gombok használhatóságát letiltjuk.
-     * 
+     *
+     * Itt töljük be a pályát, amelyet már létrehozunk. Megalkotjuk a mezőként
+     * funkcionáló gombokat, valamint betöltjük rájuk a megfelelő tartalmakat. A
+     * pályaszerkesztő során létrehozott gombok használhatóságát letiltjuk.
+     *
      */
-    
     public void palyabetoltese() {
         palya.setLayout(new GridLayout(PalyaMerete, PalyaMerete, 5, 5));
         palya.setVisible(true);
@@ -74,27 +75,14 @@ public class jatek extends javax.swing.JFrame implements ActionListener {
                 mezo[n][n2].addActionListener(this);
                 mezo[n][n2].setPreferredSize(new Dimension(40, 40));
                 palya.add(mezo[n][n2]);
-                
-                
-                if ((!(mezo[n][n2].getText().equalsIgnoreCase("↑"))) && (!(mezo[n][n2].getText().equalsIgnoreCase("↓"))) && (!(mezo[n][n2].getText().equalsIgnoreCase("→"))) && (!(mezo[n][n2].getText().equalsIgnoreCase("←"))) && (!(mezo[n][n2].getText().equalsIgnoreCase(""))))
-                {
+
+                if ((!(mezo[n][n2].getText().equalsIgnoreCase("↑"))) && (!(mezo[n][n2].getText().equalsIgnoreCase("↓"))) && (!(mezo[n][n2].getText().equalsIgnoreCase("→"))) && (!(mezo[n][n2].getText().equalsIgnoreCase("←"))) && (!(mezo[n][n2].getText().equalsIgnoreCase("")))) {
                     mezo[n][n2].setEnabled(false);
                 }
-                
-                      
-              
-
-
 
             }
         }
-        
-        
-        
-        
-        
-        
-         
+
     }
 
     /**
@@ -114,19 +102,20 @@ public class jatek extends javax.swing.JFrame implements ActionListener {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bűvös csiga játék");
-        setPreferredSize(new java.awt.Dimension(400, 400));
+        setPreferredSize(new java.awt.Dimension(453, 484));
 
-        palya.setMinimumSize(null);
+        palya.setMinimumSize(new java.awt.Dimension(300, 300));
+        palya.setPreferredSize(new java.awt.Dimension(300, 300));
 
         javax.swing.GroupLayout palyaLayout = new javax.swing.GroupLayout(palya);
         palya.setLayout(palyaLayout);
         palyaLayout.setHorizontalGroup(
             palyaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 433, Short.MAX_VALUE)
         );
         palyaLayout.setVerticalGroup(
             palyaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         kilepes.setText("Kilépés");
@@ -150,7 +139,7 @@ public class jatek extends javax.swing.JFrame implements ActionListener {
             .addGroup(gombokLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(kilepes)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 273, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ellenorzes)
                 .addGap(50, 50, 50))
         );
@@ -164,29 +153,27 @@ public class jatek extends javax.swing.JFrame implements ActionListener {
         );
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Bűvös csiga");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(gombok, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(palya, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(gombok, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(palya, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(143, 143, 143)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(21, 21, 21)
                 .addComponent(jLabel1)
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addComponent(palya, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(9, 9, 9)
                 .addComponent(gombok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -197,20 +184,18 @@ public class jatek extends javax.swing.JFrame implements ActionListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ellenorzesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ellenorzesActionPerformed
-        
+
         /**
          * @author Szőllősi Viktor
-         * 
-         * Megvizsgáljuk, hogy a pálya helyesen van-e kitöltve, ha igen,
-         * akkor átugrunk az eredményt kijelző JFrame-re.
-         * 
+         *
+         * Megvizsgáljuk, hogy a pálya helyesen van-e kitöltve, ha igen, akkor
+         * átugrunk az eredményt kijelző JFrame-re.
+         *
          */
-        
-        
         try {
 
             pf.palyaKorkoros(PalyaMerete, 0, 0);
-           
+
             if (pf.palyaJo() == true && pf.folytonosE() == true) {
                 dispose();
                 eredmeny e = new eredmeny();
@@ -227,31 +212,27 @@ public class jatek extends javax.swing.JFrame implements ActionListener {
     }//GEN-LAST:event_ellenorzesActionPerformed
 
     private void kilepesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kilepesActionPerformed
-       
+
         /**
-         * 
+         *
          * @author Szőllősi Viktor
-         * 
+         *
          * Lehetővé teszi a játékból való kilépést.
-         * 
+         *
          */
-        
-        
         this.dispose();
 
     }//GEN-LAST:event_kilepesActionPerformed
 
-    
     /**
-     * 
+     *
      * @author Cellár László
-     * 
-     * Vizsgálja a kattintásokat és minden egyes mezőn történő változtatást eltárol az adatszerkezetben,
-     * illetve frissíti a gombon megjelenő szöveget.
-     * 
+     *
+     * Vizsgálja a kattintásokat és minden egyes mezőn történő változtatást
+     * eltárol az adatszerkezetben, illetve frissíti a gombon megjelenő
+     * szöveget.
+     *
      */
-    
-    
     public void actionPerformed(ActionEvent e) {
 
         for (int i = 0; i < PalyaMerete; i++) {

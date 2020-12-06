@@ -20,10 +20,10 @@ import static javax.swing.JOptionPane.showMessageDialog;
 /**
  *
  * @author Cellár László
- * 
- * Felvesszünk pár fontos adatot az adatbázis kapcsolat létrehozásához: driver, adatbázis elérési útvonal, felhasználónév, jelszó.
+ *
+ * Felvesszünk pár fontos adatot az adatbázis kapcsolat létrehozásához: driver,
+ * adatbázis elérési útvonal, felhasználónév, jelszó.
  */
-
 public class betoltes extends javax.swing.JFrame {
 
     String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -32,15 +32,14 @@ public class betoltes extends javax.swing.JFrame {
     String PASS = "";
 
     /**
-     * 
+     *
      * @author Cellár László
-     * 
-     * Itt történik a pálya betöltése.
-     * Egy SQL kóddal kilistázzuk az adatbázisba elmentett pályákat.
-     * 
-     * 
+     *
+     * Itt történik a pálya betöltése. Egy SQL kóddal kilistázzuk az adatbázisba
+     * elmentett pályákat.
+     *
+     *
      */
-    
     public betoltes() {
         initComponents();
         DefaultTableModel model = new DefaultTableModel(new String[]{"Pálya neve", "Pálya felépítése"}, 0);
@@ -49,13 +48,11 @@ public class betoltes extends javax.swing.JFrame {
         Connection conn = null;
         Statement stmt = null;
         try {
-           
+
             Class.forName("com.mysql.jdbc.Driver");
 
-           
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
-         
-           
+
             stmt = conn.createStatement();
 
             String sql = "SELECT * FROM palyak";
@@ -72,16 +69,14 @@ public class betoltes extends javax.swing.JFrame {
             TableColumnModel tcm = palyak_listazasa.getColumnModel();
             tcm.removeColumn(tcm.getColumn(1));
 
-           
-
         } catch (SQLException se) {
-            
+
             se.printStackTrace();
         } catch (Exception e) {
-            
+
             e.printStackTrace();
         } finally {
-            
+
             try {
                 if (stmt != null) {
                     conn.close();
@@ -99,7 +94,6 @@ public class betoltes extends javax.swing.JFrame {
 
     }
 
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -110,6 +104,7 @@ public class betoltes extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Pálya betöltése");
 
         palyak_listazasa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -179,21 +174,19 @@ public class betoltes extends javax.swing.JFrame {
     private void betoltesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_betoltesActionPerformed
 
         /**
-         * 
+         *
          * @author Szőllősi Viktor
-         * 
-         * Itt hívjuk meg az XMLbetoltes nevű metódust, amely betölti a kiválasztott pályát.
-         * 
+         *
+         * Itt hívjuk meg az XMLbetoltes nevű metódust, amely betölti a
+         * kiválasztott pályát.
+         *
          */
-        
         try {
-        palyaFelepitese pf = new palyaFelepitese();
+            palyaFelepitese pf = new palyaFelepitese();
 
-        pf.XMLbetoltes(palyak_listazasa.getModel().getValueAt(palyak_listazasa.getSelectedRow(), 1).toString());
-        this.setVisible(false);
-        }
-        catch (Exception e)
-        {
+            pf.XMLbetoltes(palyak_listazasa.getModel().getValueAt(palyak_listazasa.getSelectedRow(), 1).toString());
+            this.setVisible(false);
+        } catch (Exception e) {
             showMessageDialog(null, "Kérem válasszon ki egy betöltendő pályát.", "Hiba", ERROR_MESSAGE);
         }
     }//GEN-LAST:event_betoltesActionPerformed

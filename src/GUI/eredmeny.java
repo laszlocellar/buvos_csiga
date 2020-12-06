@@ -8,13 +8,11 @@ package GUI;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
 
-
 public class eredmeny extends javax.swing.JFrame {
 
     public eredmeny() {
         initComponents();
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -26,6 +24,7 @@ public class eredmeny extends javax.swing.JFrame {
         kilepes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Eredmény");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -92,11 +91,11 @@ public class eredmeny extends javax.swing.JFrame {
     private void ujjatekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ujjatekActionPerformed
 
         /**
-         * 
+         *
          * @author Szőllősi Viktor
-         * 
+         *
          * Új játékot indíthatunk el, amely átirányít minket a menu JFrame-re.
-         * 
+         *
          */
         try {
 
@@ -111,13 +110,13 @@ public class eredmeny extends javax.swing.JFrame {
     }//GEN-LAST:event_ujjatekActionPerformed
 
     private void kilepesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kilepesActionPerformed
-        
+
         /**
-         * 
+         *
          * @author Szőllősi Viktor
-         * 
+         *
          * A kilépés gomb megnyomásáával kiléphetünk a játékból.
-         * 
+         *
          */
         this.dispose();
 
