@@ -16,14 +16,28 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
- *
- * @author Cellar-PC
- */
+*
+* @author Szőllősi Viktor
+*
+* Eltárolja globálisan a pálya méretét, hogy meddig mennek a számok, a gombok felépítését, 
+illetve a pálya szerkezetét.
+*
+*/
+
+
 public class palyaszerkeszto extends javax.swing.JFrame implements ActionListener {
 
     int PalyaMerete, SzamokMeddig;
     JButton[][] mezo;
     palyaFelepitese pf;
+    
+    /**
+*
+* @author Szőllősi Viktor
+*
+* A konstruktor paramétereiül kapott értékeket eltárolja a globális változókba, illetve létrehozza a gombokat, plusz a pályát.
+*
+*/
 
     public palyaszerkeszto(int inputPalyaMerete, int inputSzamokMeddig) {
 
@@ -34,6 +48,14 @@ public class palyaszerkeszto extends javax.swing.JFrame implements ActionListene
         palya_letrehozas(PalyaMerete, SzamokMeddig, inputPalyaMerete);
 
     }
+    
+    /**
+*
+* @author Cellár László
+*
+* Létrehozza a gombokat, illetve lekérdezi a hozzáillő szöveget.
+*
+*/
 
     private void palya_letrehozas(int PalyaMerete, int SzamokMeddig, int inputPalyaMerete) {
 
@@ -177,6 +199,14 @@ public class palyaszerkeszto extends javax.swing.JFrame implements ActionListene
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+/**
+*
+* @author Szőllősi Viktor
+*
+* Felépíti a pályát körkörösen, majd megvizsgálja, hogy a pálya eleget tesz-e a feltételeknek, 
+* ha igen, akkor átugrik a mentésre. Ha nem, akkor hibát ír ki.
+*
+*/
     private void palya_menteseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_palya_menteseActionPerformed
 
         try {
@@ -195,6 +225,14 @@ public class palyaszerkeszto extends javax.swing.JFrame implements ActionListene
         }
     }//GEN-LAST:event_palya_menteseActionPerformed
 
+    /**
+*
+* @author Szőllősi Viktor
+*
+* Felépíti a pályát körkörösen, majd megvizsgálja, hogy a pálya eleget tesz-e a feltételeknek. Ha nem, akkor hibát ír ki.
+*
+*/
+    
     private void jatek_inditasaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jatek_inditasaActionPerformed
 
         try {
@@ -224,6 +262,13 @@ public class palyaszerkeszto extends javax.swing.JFrame implements ActionListene
     private javax.swing.JButton palya_mentese;
     // End of variables declaration//GEN-END:variables
 
+    /**
+* @author Cellár László
+*
+* Vizsgálja a gombokon történő aktivitást és aszerint állít be nekik értéket.
+*
+*/
+    
     @Override
     public void actionPerformed(ActionEvent e) {
 
